@@ -195,14 +195,14 @@ export const translations: Record<string, Translations> = {
     cadModels: "CAD Models",
 
     // Hero Section
-    heroTitle: "IndustrialNet Network",
+    heroTitle: "TopTaklif Network",
     heroSubtitle: "Connect with Uzbekistan's largest network of industrial suppliers, manufacturers, and distributors. Access verified companies, detailed capabilities, and real-time sourcing intelligence.",
     searchNetwork: "Search Network",
     watchDemo: "Watch Demo",
 
     // Stats Section
     statsTitle: "Uzbekistan's Most Comprehensive Industrial Network",
-    statsSubtitle: "For over 30 years, IndustrialNet has been the trusted source for industrial sourcing intelligence, connecting buyers with the right suppliers across Uzbekistan.",
+    statsSubtitle: "TopTaklif has been the trusted source for industrial sourcing intelligence, connecting buyers with the right suppliers across Uzbekistan.",
     verifiedSuppliers: "Verified Suppliers",
     acrossUzbekistan: "Across Uzbekistan",
     productCategories: "Product Categories",
@@ -250,7 +250,7 @@ export const translations: Record<string, Translations> = {
 
     // Success Stories
     successStoriesTitle: "Success Stories",
-    successStoriesSubtitle: "See how Uzbekistan companies are leveraging IndustrialNet Network to drive results",
+    successStoriesSubtitle: "See how Uzbekistan companies are leveraging TopTaklif Network to drive results",
     fasterSourcing: "faster sourcing",
     supplierIdentification: "supplier identification",
     annualSavings: "annual savings",
@@ -300,7 +300,7 @@ export const translations: Record<string, Translations> = {
 
     // CTA Section
     ctaTitle: "Ready to Access the Network?",
-    ctaSubtitle: "Join thousands of procurement professionals who trust IndustrialNet Network for their sourcing needs in Uzbekistan.",
+    ctaSubtitle: "Join thousands of procurement professionals who trust TopTaklif Network for their sourcing needs in Uzbekistan.",
     scheduleDemo: "Schedule Demo",
 
     // Footer
@@ -316,7 +316,7 @@ export const translations: Record<string, Translations> = {
     careers: "Careers",
     press: "Press",
     contact: "Contact",
-    allRightsReserved: "© 2024 IndustrialNet. All rights reserved.",
+    allRightsReserved: "© 2024 TopTaklif. All rights reserved.",
     privacyPolicy: "Privacy Policy",
     termsOfService: "Terms of Service",
     cookiePolicy: "Cookie Policy",
@@ -353,7 +353,7 @@ export const translations: Record<string, Translations> = {
     // Demo
     platformDemo: "Platform Demo",
     demoVideo: "Demo Video",
-    demoDescription: "Watch how IndustrialNet Network helps Uzbekistan businesses connect and grow",
+    demoDescription: "Watch how TopTaklif Network helps Uzbekistan businesses connect and grow",
     playDemo: "Play Demo (5:30)",
 
     // Breadcrumb
@@ -380,14 +380,14 @@ export const translations: Record<string, Translations> = {
     cadModels: "CAD Modellari",
 
     // Hero Section
-    heroTitle: "IndustrialNet Tarmog'i",
+    heroTitle: "TopTaklif Tarmog'i",
     heroSubtitle: "O'zbekistonning eng katta sanoat ta'minotchilari, ishlab chiqaruvchilari va distribyutorlar tarmog'iga ulanish. Tasdiqlangan kompaniyalar, batafsil imkoniyatlar va real vaqt ta'minot ma'lumotlariga kirish.",
     searchNetwork: "Tarmoqni Qidirish",
     watchDemo: "Demo Ko'rish",
 
     // Stats Section
     statsTitle: "O'zbekistonning Eng Keng Qamrovli Sanoat Tarmog'i",
-    statsSubtitle: "30 yildan ortiq vaqt davomida IndustrialNet O'zbekiston bo'ylab xaridorlarni to'g'ri ta'minotchilar bilan bog'lash uchun ishonchli sanoat ta'minot ma'lumotlari manbai bo'lib kelgan.",
+    statsSubtitle: "TopTaklif O'zbekiston bo'ylab xaridorlarni to'g'ri ta'minotchilar bilan bog'lash uchun ishonchli sanoat ta'minot ma'lumotlari manbai bo'lib kelgan.",
     verifiedSuppliers: "Tasdiqlangan Ta'minotchilar",
     acrossUzbekistan: "O'zbekiston bo'ylab",
     productCategories: "Mahsulot Toifalari",

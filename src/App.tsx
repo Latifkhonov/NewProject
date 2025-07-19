@@ -608,7 +608,7 @@ const App: React.FC = () => {
                 </div>
               </div>
               <blockquote className="text-gray-600 italic mb-4">
-                "IndustrialNet Network helped us reduce sourcing time by 60% and identify 3 new strategic suppliers that improved our supply chain resilience."
+                "TopTaklif Network helped us reduce sourcing time by 60% and identify 3 new strategic suppliers that improved our supply chain resilience."
               </blockquote>
               <div className="flex items-center text-sm text-gray-500">
                 <Award className="h-4 w-4 mr-1" />
@@ -650,7 +650,7 @@ const App: React.FC = () => {
                 </div>
               </div>
               <blockquote className="text-gray-600 italic mb-4">
-                "Market intelligence from IndustrialNet helped us negotiate better terms and identify cost-saving opportunities worth $500K annually."
+                "Market intelligence from TopTaklif helped us negotiate better terms and identify cost-saving opportunities worth $500K annually."
               </blockquote>
               <div className="flex items-center text-sm text-gray-500">
                 <BarChart3 className="h-4 w-4 mr-1" />

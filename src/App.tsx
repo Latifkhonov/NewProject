@@ -883,7 +883,7 @@ const App: React.FC = () => {
             <div>
               <div className="flex items-center mb-4">
                 <Building2 className="h-8 w-8 text-blue-400" />
-                <span className="ml-2 text-xl font-bold">IndustrialNet</span>
+                <span className="ml-2 text-xl font-bold">TopTaklif</span>
               </div>
               <p className="text-gray-400 mb-4">
                 {t.footerDescription}
@@ -893,7 +893,7 @@ const App: React.FC = () => {
                   <Globe className="h-5 w-5" />
                 </button>
                 <button 
-                  onClick={() => window.location.href = 'mailto:info@industrialnet.uz'}
+                  onClick={() => window.location.href = 'mailto:toptaklif@gmail.com'}
                   className="text-gray-400 hover:text-white"
                 >
                   <Mail className="h-5 w-5" />

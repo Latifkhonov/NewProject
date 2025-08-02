@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Building2, FileText, BarChart3, Users, Star, MapPin, Shield, Filter, ChevronRight, Menu, X, Globe, Award, TrendingUp, CheckCircle, ArrowRight, Play, Download, Calendar, Mail, Phone, ExternalLink, Languages } from 'lucide-react';
+import { Search, Building2, FileText, BarChart3, Users, Star, MapPin, Shield, Filter, ChevronRight, Menu, X, Globe, Award, TrendingUp, CheckCircle, ArrowRight, Play, Download, Calendar, Mail, Phone, ExternalLink, Languages, User, Settings, LogOut, ChevronDown } from 'lucide-react';
 import { translations, Translations } from './translations';
 import { LoginForm } from './components/LoginForm';
 import { RegisterForm } from './components/RegisterForm';
@@ -17,6 +17,7 @@ const App: React.FC = () => {
   const [showContactForm, setShowContactForm] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState<string>('en');
   const [showLanguageSelector, setShowLanguageSelector] = useState(false);
+  const [showUserDropdown, setShowUserDropdown] = useState(false);
 
   // Initialize auth on component mount
   React.useEffect(() => {
@@ -66,6 +67,15 @@ const App: React.FC = () => {
   const handleLogout = () => {
     logout();
     setCurrentView('home');
+  };
+
+  const getUserInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map(word => word.charAt(0))
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
   };
 
   const renderLanguageSelector = () => (
@@ -147,16 +157,100 @@ const App: React.FC = () => {
 
           <div className="flex items-center space-x-4">
             {isAuthenticated ? (
-              <div className="flex items-center space-x-4">
-                <div className="text-sm text-gray-700">
-                  Welcome, <span className="font-medium">{user?.name}</span>
-                </div>
-                <button 
-                  onClick={handleLogout}
-                  className="text-gray-700 hover:text-blue-600 text-sm font-medium"
+              <div className="relative">
+                <button
+                  onClick={() => setShowUserDropdown(!showUserDropdown)}
+                  className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-50 transition-colors"
                 >
-                  Logout
+                  <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
+                    {user?.name ? getUserInitials(user.name) : 'U'}
+                  </div>
+                  <div className="hidden md:block text-left">
+                    <div className="text-sm font-medium text-gray-900">{user?.name}</div>
+                    <div className="text-xs text-gray-500">{user?.companyName}</div>
+                  </div>
+                  <ChevronDown className="h-4 w-4 text-gray-400" />
                 </button>
+                
+                {showUserDropdown && (
+                  <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                    <div className="px-4 py-3 border-b border-gray-100">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-medium">
+                          {user?.name ? getUserInitials(user.name) : 'U'}
+                        </div>
+                        <div>
+                          <div className="font-medium text-gray-900">{user?.name}</div>
+                          <div className="text-sm text-gray-500">{user?.email}</div>
+                          <div className="text-xs text-gray-400">{user?.companyName}</div>
+                        </div>
+                      </div>
+                      {user?.role && (
+                        <div className="mt-2">
+                          <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                            user.role === 'buyer' 
+                              ? 'bg-blue-100 text-blue-800' 
+                              : 'bg-green-100 text-green-800'
+                          }`}>
+                            {user.role === 'buyer' ? 'Buyer' : 'Supplier'}
+                          </span>
+                          {user.isVerified && (
+                            <span className="ml-2 inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                              <CheckCircle className="h-3 w-3 mr-1" />
+                              Verified
+                            </span>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div className="py-1">
+                      <button
+                        onClick={() => {
+                          setShowUserDropdown(false);
+                          handleNavigation('profile');
+                        }}
+                        className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                      >
+                        <User className="h-4 w-4 mr-3" />
+                        View Profile
+                      </button>
+                      <button
+                        onClick={() => {
+                          setShowUserDropdown(false);
+                          handleNavigation('settings');
+                        }}
+                        className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                      >
+                        <Settings className="h-4 w-4 mr-3" />
+                        Account Settings
+                      </button>
+                      <button
+                        onClick={() => {
+                          setShowUserDropdown(false);
+                          handleNavigation('dashboard');
+                        }}
+                        className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                      >
+                        <BarChart3 className="h-4 w-4 mr-3" />
+                        Dashboard
+                      </button>
+                    </div>
+                    
+                    <div className="border-t border-gray-100 py-1">
+                      <button
+                        onClick={() => {
+                          setShowUserDropdown(false);
+                          handleLogout();
+                        }}
+                        className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50"
+                      >
+                        <LogOut className="h-4 w-4 mr-3" />
+                        Sign Out
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             ) : (
               <>
@@ -217,6 +311,38 @@ const App: React.FC = () => {
             >
               {t.cadModels}
             </button>
+            
+            {isAuthenticated && (
+              <div className="border-t border-gray-200 pt-4 mt-4">
+                <div className="flex items-center px-3 py-2">
+                  <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm font-medium mr-3">
+                    {user?.name ? getUserInitials(user.name) : 'U'}
+                  </div>
+                  <div>
+                    <div className="text-sm font-medium text-gray-900">{user?.name}</div>
+                    <div className="text-xs text-gray-500">{user?.companyName}</div>
+                  </div>
+                </div>
+                <button
+                  onClick={() => handleNavigation('profile')}
+                  className="block w-full text-left px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+                >
+                  View Profile
+                </button>
+                <button
+                  onClick={() => handleNavigation('dashboard')}
+                  className="block w-full text-left px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+                >
+                  Dashboard
+                </button>
+                <button
+                  onClick={handleLogout}
+                  className="block w-full text-left px-3 py-2 text-base font-medium text-red-600 hover:bg-red-50"
+                >
+                  Sign Out
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}
@@ -994,6 +1120,14 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-white">
       {renderHeader()}
+      
+      {/* Click outside to close dropdown */}
+      {showUserDropdown && (
+        <div 
+          className="fixed inset-0 z-40" 
+          onClick={() => setShowUserDropdown(false)}
+        />
+      )}
       
       {currentView === 'home' && renderHomePage()}
       {currentView === 'search-results' && renderSearchResults()}

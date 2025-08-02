@@ -998,12 +998,36 @@ const App: React.FC = () => {
       {currentView === 'home' && renderHomePage()}
       {currentView === 'search-results' && renderSearchResults()}
       
+      {/* Authentication Pages */}
+      {currentView === 'login' && (
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+          <LoginForm 
+            onSuccess={handleLoginSuccess}
+            onSwitchToRegister={() => handleNavigation('registration')}
+          />
+        </div>
+      )}
+      
+      {currentView === 'registration' && (
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+          <RegisterForm 
+            onSuccess={handleRegisterSuccess}
+            onSwitchToLogin={() => handleNavigation('login')}
+          />
+        </div>
+      )}
+      
       {/* Modals */}
       {showDemo && renderDemo()}
       {showRFQForm && renderRFQForm()}
       {showContactForm && renderContactForm()}
+      {showLanguageSelector && renderLanguageSelector()}
+      
       {/* Simple placeholder views for other pages */}
-      {currentView !== 'home' && currentView !== 'search-results' && (
+      {currentView !== 'home' && 
+       currentView !== 'search-results' && 
+       currentView !== 'login' && 
+       currentView !== 'registration' && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
           <h1 className="text-3xl font-bold text-gray-900 mb-4">
             {currentView.charAt(0).toUpperCase() + currentView.slice(1).replace('-', ' ')} Page

@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { Search, Building2, FileText, BarChart3, Users, Star, MapPin, Shield, Filter, ChevronRight, Menu, X, Globe, Award, TrendingUp, CheckCircle, ArrowRight, Play, Download, Calendar, Mail, Phone, ExternalLink, Languages } from 'lucide-react';
 import { translations, Translations } from './translations';
+import { LoginForm } from './components/LoginForm';
+import { RegisterForm } from './components/RegisterForm';
+import { useAuth } from './hooks/useAuth';
 
 const App: React.FC = () => {
+  const { user, isAuthenticated, logout, initializeAuth } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currentView, setCurrentView] = useState('home');
   const [searchQuery, setSearchQuery] = useState('');
@@ -13,6 +17,11 @@ const App: React.FC = () => {
   const [showContactForm, setShowContactForm] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState<string>('en');
   const [showLanguageSelector, setShowLanguageSelector] = useState(false);
+
+  // Initialize auth on component mount
+  React.useEffect(() => {
+    initializeAuth();
+  }, [initializeAuth]);
 
   const t: Translations = translations[currentLanguage];
 
@@ -44,6 +53,19 @@ const App: React.FC = () => {
   const handleLanguageChange = (language: string) => {
     setCurrentLanguage(language);
     setShowLanguageSelector(false);
+  };
+
+  const handleLoginSuccess = () => {
+    setCurrentView('home');
+  };
+
+  const handleRegisterSuccess = () => {
+    setCurrentView('home');
+  };
+
+  const handleLogout = () => {
+    logout();
+    setCurrentView('home');
   };
 
   const renderLanguageSelector = () => (
@@ -124,18 +146,34 @@ const App: React.FC = () => {
           </nav>
 
           <div className="flex items-center space-x-4">
-            <button 
-              onClick={() => handleNavigation('login')}
-              className="text-gray-700 hover:text-blue-600 text-sm font-medium"
-            >
-              Log In
-            </button>
-            <button 
-              onClick={() => handleNavigation('registration')}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
-            >
-              Register
-            </button>
+            {isAuthenticated ? (
+              <div className="flex items-center space-x-4">
+                <div className="text-sm text-gray-700">
+                  Welcome, <span className="font-medium">{user?.name}</span>
+                </div>
+                <button 
+                  onClick={handleLogout}
+                  className="text-gray-700 hover:text-blue-600 text-sm font-medium"
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <>
+                <button 
+                  onClick={() => handleNavigation('login')}
+                  className="text-gray-700 hover:text-blue-600 text-sm font-medium"
+                >
+                  Log In
+                </button>
+                <button 
+                  onClick={() => handleNavigation('registration')}
+                  className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                >
+                  Register
+                </button>
+              </>
+            )}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="md:hidden p-2"

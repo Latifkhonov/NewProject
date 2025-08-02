@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import anime from 'animejs/lib/anime.es.js';
 import { Search, Building2, FileText, BarChart3, Users, Star, MapPin, Shield, Filter, ChevronRight, Menu, X, Globe, Award, TrendingUp, CheckCircle, ArrowRight, Play, Download, Calendar, Mail, Phone, ExternalLink, Languages, User, Settings, LogOut, ChevronDown } from 'lucide-react';
 import { translations, Translations } from './translations';
 import { LoginForm } from './components/LoginForm';
@@ -18,11 +19,86 @@ const App: React.FC = () => {
   const [currentLanguage, setCurrentLanguage] = useState<string>('en');
   const [showLanguageSelector, setShowLanguageSelector] = useState(false);
   const [showUserDropdown, setShowUserDropdown] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
+  const logoRef = useRef<HTMLDivElement>(null);
+  const navRef = useRef<HTMLNavElement>(null);
+  const avatarRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Initialize auth on component mount
-  React.useEffect(() => {
+  useEffect(() => {
     initializeAuth();
+    
+    // Header entrance animation
+    if (headerRef.current) {
+      anime({
+        targets: headerRef.current,
+        translateY: [-50, 0],
+        opacity: [0, 1],
+        duration: 1000,
+        easing: 'easeOutExpo'
+      });
+    }
+
+    // Logo animation
+    if (logoRef.current) {
+      anime({
+        targets: logoRef.current,
+        scale: [0.8, 1],
+        rotate: [0, 360],
+        duration: 1200,
+        easing: 'easeOutElastic(1, .8)',
+        delay: 300
+      });
+    }
+
+    // Navigation items stagger animation
+    if (navRef.current) {
+      const navItems = navRef.current.querySelectorAll('button');
+      anime({
+        targets: navItems,
+        translateY: [-20, 0],
+        opacity: [0, 1],
+        duration: 800,
+        delay: anime.stagger(100, {start: 500}),
+        easing: 'easeOutQuart'
+      });
+    }
+
+    // Avatar pulse animation (if authenticated)
+    if (avatarRef.current && isAuthenticated) {
+      anime({
+        targets: avatarRef.current,
+        scale: [0, 1],
+        duration: 600,
+        easing: 'easeOutBack',
+        delay: 800,
+        complete: () => {
+          // Continuous subtle pulse
+          anime({
+            targets: avatarRef.current,
+            scale: [1, 1.05, 1],
+            duration: 2000,
+            loop: true,
+            easing: 'easeInOutSine'
+          });
+        }
+      });
+    }
   }, [initializeAuth]);
+
+  // Avatar animation when authentication state changes
+  useEffect(() => {
+    if (avatarRef.current && isAuthenticated) {
+      anime({
+        targets: avatarRef.current,
+        scale: [0, 1.2, 1],
+        rotate: [0, 360],
+        duration: 800,
+        easing: 'easeOutBack'
+      });
+    }
+  }, [isAuthenticated]);
 
   const t: Translations = translations[currentLanguage];
 
@@ -65,8 +141,73 @@ const App: React.FC = () => {
   };
 
   const handleLogout = () => {
+    // Logout animation
+    if (avatarRef.current) {
+      anime({
+        targets: avatarRef.current,
+        scale: [1, 0],
+        rotate: [0, -180],
+        duration: 400,
+        easing: 'easeInBack',
+        complete: () => {
+          logout();
+          setShowUserDropdown(false);
+        }
+      });
+    } else {
+      logout();
+      setShowUserDropdown(false);
+    }
+  };
+
+  const handleNavClick = (view: string) => {
+    // Navigation click animation
+    anime({
+      targets: headerRef.current,
+      scale: [1, 0.98, 1],
+      duration: 200,
+      easing: 'easeOutQuart',
+      complete: () => {
+        setCurrentView(view);
+      }
+    });
+  };
+
+  const handleDropdownToggle = () => {
+    if (!showUserDropdown && dropdownRef.current) {
+      setShowUserDropdown(true);
+      // Dropdown entrance animation
+      anime({
+        targets: dropdownRef.current,
+        translateY: [-10, 0],
+        opacity: [0, 1],
+        scale: [0.95, 1],
+        duration: 300,
+        easing: 'easeOutQuart'
+      });
+    } else {
+      // Dropdown exit animation
+      if (dropdownRef.current) {
+        anime({
+          targets: dropdownRef.current,
+          translateY: [0, -10],
+          opacity: [1, 0],
+          scale: [1, 0.95],
+          duration: 200,
+          easing: 'easeInQuart',
+          complete: () => {
+            setShowUserDropdown(false);
+          }
+        });
+      } else {
+        setShowUserDropdown(false);
+      }
+    }
+  };
+
+  const originalHandleLogout = () => {
     logout();
-    setCurrentView('home');
+    setShowUserDropdown(false);
   };
 
   const getUserInitials = (name: string) => {
@@ -115,40 +256,48 @@ const App: React.FC = () => {
   );
 
   const renderHeader = () => (
-    <header className="bg-white shadow-sm border-b">
+    <header 
+      ref={headerRef}
+      className="bg-white/80 backdrop-blur-md shadow-sm border-b border-white/20 sticky top-0 z-50"
+      style={{ 
+        background: 'rgba(255, 255, 255, 0.8)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)'
+      }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="flex items-center cursor-pointer" onClick={() => handleNavigation('home')}>
+          <div ref={logoRef} className="flex items-center cursor-pointer" onClick={() => handleNavigation('home')}>
             <Building2 className="h-8 w-8 text-blue-600" />
             <span className="ml-2 text-xl font-bold text-gray-900">TopTaklif</span>
           </div>
           
-          <nav className="hidden md:flex space-x-8">
+          <nav ref={navRef} className="hidden md:flex space-x-8">
             <button 
-              onClick={() => handleNavigation('products')}
+              onClick={() => handleNavClick('products')}
               className={`px-3 py-2 text-sm font-medium ${currentView === 'products' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-700 hover:text-blue-600'}`}
             >
               {t.productsServices}
             </button>
             <button 
-              onClick={() => handleNavigation('suppliers')}
+              onClick={() => handleNavClick('suppliers')}
               className={`px-3 py-2 text-sm font-medium ${currentView === 'suppliers' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-700 hover:text-blue-600'}`}
             >
               {t.suppliers}
             </button>
             <button 
-              onClick={() => handleNavigation('home')}
+              onClick={() => handleNavClick('home')}
               className={`px-3 py-2 text-sm font-medium ${currentView === 'home' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-700 hover:text-blue-600'}`}
             >
               {t.network}
             </button>
             <button 
-              onClick={() => handleNavigation('insights')}
+              onClick={() => handleNavClick('insights')}
             >
               Insights
             </button>
             <button 
-              onClick={() => handleNavigation('cad-models')}
+              onClick={() => handleNavClick('cad-models')}
               className={`px-3 py-2 text-sm font-medium ${currentView === 'cad-models' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-700 hover:text-blue-600'}`}
             >
               CAD Models
@@ -157,9 +306,9 @@ const App: React.FC = () => {
 
           <div className="flex items-center space-x-4">
             {isAuthenticated ? (
-              <div className="relative">
+              <div ref={avatarRef} className="relative">
                 <button
-                  onClick={() => setShowUserDropdown(!showUserDropdown)}
+                  onClick={handleDropdownToggle}
                   className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-50 transition-colors"
                 >
                   <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
@@ -173,7 +322,15 @@ const App: React.FC = () => {
                 </button>
                 
                 {showUserDropdown && (
-                  <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                  <div 
+                    ref={dropdownRef}
+                    className="absolute right-0 mt-2 w-64 bg-white/90 backdrop-blur-md rounded-lg shadow-lg border border-white/20 py-2 z-50"
+                    style={{ 
+                      background: 'rgba(255, 255, 255, 0.9)',
+                      backdropFilter: 'blur(8px)',
+                      WebkitBackdropFilter: 'blur(8px)'
+                    }}
+                  >
                     <div className="px-4 py-3 border-b border-gray-100">
                       <div className="flex items-center space-x-3">
                         <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-medium">
@@ -208,7 +365,7 @@ const App: React.FC = () => {
                       <button
                         onClick={() => {
                           setShowUserDropdown(false);
-                          handleNavigation('profile');
+                          handleNavClick('profile');
                         }}
                         className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
                       >
@@ -218,7 +375,7 @@ const App: React.FC = () => {
                       <button
                         onClick={() => {
                           setShowUserDropdown(false);
-                          handleNavigation('settings');
+                          handleNavClick('settings');
                         }}
                         className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
                       >
@@ -228,7 +385,7 @@ const App: React.FC = () => {
                       <button
                         onClick={() => {
                           setShowUserDropdown(false);
-                          handleNavigation('dashboard');
+                          handleNavClick('dashboard');
                         }}
                         className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
                       >
@@ -255,13 +412,13 @@ const App: React.FC = () => {
             ) : (
               <>
                 <button 
-                  onClick={() => handleNavigation('login')}
+                  onClick={() => handleNavClick('login')}
                   className="text-gray-700 hover:text-blue-600 text-sm font-medium"
                 >
                   Log In
                 </button>
                 <button 
-                  onClick={() => handleNavigation('registration')}
+                  onClick={() => handleNavClick('registration')}
                   className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
                 >
                   Register

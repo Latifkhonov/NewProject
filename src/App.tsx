@@ -67,6 +67,84 @@ const App: React.FC = () => {
           transform: translateY(-5px);
           box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
+        .scribble-text {
+          position: relative;
+          display: inline-block;
+        }
+        .scribble-text::after {
+          content: '';
+          position: absolute;
+          bottom: -5px;
+          left: 0;
+          width: 100%;
+          height: 3px;
+          background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10'%3E%3Cpath d='M0,5 Q25,0 50,5 T100,5' stroke='%23667eea' stroke-width='2' fill='none'/%3E%3C/svg%3E") repeat-x;
+          background-size: 100px 10px;
+          opacity: 0;
+          animation: scribble-draw 2s ease-in-out 0.5s forwards;
+        }
+        @keyframes scribble-draw {
+          to {
+            opacity: 1;
+            background-position: 200px 0;
+          }
+        }
+        .interactive-card {
+          position: relative;
+          overflow: hidden;
+          transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+          background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+          border: 1px solid #e2e8f0;
+        }
+        .interactive-card::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+          transition: left 0.6s ease;
+        }
+        .interactive-card:hover::before {
+          left: 100%;
+        }
+        .interactive-card:hover {
+          transform: translateY(-10px) scale(1.02);
+          box-shadow: 0 25px 50px rgba(102, 126, 234, 0.15);
+          border-color: #667eea;
+        }
+        .icon-container {
+          transition: all 0.3s ease;
+          position: relative;
+        }
+        .interactive-card:hover .icon-container {
+          transform: scale(1.1) rotate(5deg);
+          background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+        .interactive-card:hover .icon-container svg {
+          color: white;
+        }
+        .feature-list {
+          transition: all 0.3s ease;
+        }
+        .interactive-card:hover .feature-list {
+          transform: translateX(5px);
+        }
+        .pulse-dot {
+          animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.5; }
+        }
+        .floating-animation {
+          animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
+        }
       `}</style>
 
       {/* Header */}
@@ -273,7 +351,7 @@ const App: React.FC = () => {
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 scribble-text">
               {t.featuresTitle}
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -282,67 +360,67 @@ const App: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="card-hover bg-white p-8 rounded-lg shadow-sm border">
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
+            <div className="interactive-card p-8 rounded-xl shadow-lg floating-animation">
+              <div className="icon-container w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
                 <Search className="h-6 w-6 text-blue-600" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">{t.advancedSearch}</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4 scribble-text">{t.advancedSearch}</h3>
               <p className="text-gray-600 mb-6">{t.advancedSearchDesc}</p>
-              <ul className="space-y-2">
+              <ul className="feature-list space-y-3">
                 <li className="flex items-center text-sm text-gray-600">
-                  <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                  <div className="w-2 h-2 bg-green-500 rounded-full mr-3 pulse-dot"></div>
                   {t.geographicProximity}
                 </li>
                 <li className="flex items-center text-sm text-gray-600">
-                  <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                  <div className="w-2 h-2 bg-green-500 rounded-full mr-3 pulse-dot"></div>
                   {t.certificationFiltering}
                 </li>
                 <li className="flex items-center text-sm text-gray-600">
-                  <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                  <div className="w-2 h-2 bg-green-500 rounded-full mr-3 pulse-dot"></div>
                   {t.capabilityMatching}
                 </li>
               </ul>
             </div>
 
-            <div className="card-hover bg-white p-8 rounded-lg shadow-sm border">
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
+            <div className="interactive-card p-8 rounded-xl shadow-lg floating-animation" style={{animationDelay: '0.5s'}}>
+              <div className="icon-container w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
                 <Award className="h-6 w-6 text-blue-600" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">{t.verifiedProfiles}</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4 scribble-text">{t.verifiedProfiles}</h3>
               <p className="text-gray-600 mb-6">{t.verifiedProfilesDesc}</p>
-              <ul className="space-y-2">
+              <ul className="feature-list space-y-3">
                 <li className="flex items-center text-sm text-gray-600">
-                  <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                  <div className="w-2 h-2 bg-green-500 rounded-full mr-3 pulse-dot"></div>
                   {t.thirdPartyVerification}
                 </li>
                 <li className="flex items-center text-sm text-gray-600">
-                  <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                  <div className="w-2 h-2 bg-green-500 rounded-full mr-3 pulse-dot"></div>
                   {t.realTimeUpdates}
                 </li>
                 <li className="flex items-center text-sm text-gray-600">
-                  <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                  <div className="w-2 h-2 bg-green-500 rounded-full mr-3 pulse-dot"></div>
                   {t.comprehensiveProfiles}
                 </li>
               </ul>
             </div>
 
-            <div className="card-hover bg-white p-8 rounded-lg shadow-sm border">
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
+            <div className="interactive-card p-8 rounded-xl shadow-lg floating-animation" style={{animationDelay: '1s'}}>
+              <div className="icon-container w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
                 <TrendingUp className="h-6 w-6 text-blue-600" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">{t.marketIntelligence}</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4 scribble-text">{t.marketIntelligence}</h3>
               <p className="text-gray-600 mb-6">{t.marketIntelligenceDesc}</p>
-              <ul className="space-y-2">
+              <ul className="feature-list space-y-3">
                 <li className="flex items-center text-sm text-gray-600">
-                  <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                  <div className="w-2 h-2 bg-green-500 rounded-full mr-3 pulse-dot"></div>
                   {t.industryTrendAnalysis}
                 </li>
                 <li className="flex items-center text-sm text-gray-600">
-                  <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                  <div className="w-2 h-2 bg-green-500 rounded-full mr-3 pulse-dot"></div>
                   {t.supplierPerformanceMetrics}
                 </li>
                 <li className="flex items-center text-sm text-gray-600">
-                  <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                  <div className="w-2 h-2 bg-green-500 rounded-full mr-3 pulse-dot"></div>
                   {t.competitiveIntelligence}
                 </li>
               </ul>

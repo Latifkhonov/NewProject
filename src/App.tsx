@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import anime from 'animejs/lib/anime.es.js';
+import anime from 'animejs';
 import { Search, Building2, FileText, BarChart3, Users, Star, MapPin, Shield, Filter, ChevronRight, Menu, X, Globe, Award, TrendingUp, CheckCircle, ArrowRight, Play, Download, Calendar, Mail, Phone, ExternalLink, Languages, User, Settings, LogOut, ChevronDown } from 'lucide-react';
 import { translations, Translations } from './translations';
 import { LoginForm } from './components/LoginForm';

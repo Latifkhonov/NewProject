@@ -28,6 +28,7 @@ interface NavigationProps {
   onLogin: () => void;
   onRegister: () => void;
   onLogout: () => void;
+  onNavigateToSuppliers?: () => void;
 }
 
 interface NavItem {
@@ -42,7 +43,8 @@ export const Navigation: React.FC<NavigationProps> = ({
   user,
   onLogin,
   onRegister,
-  onLogout
+  onLogout,
+  onNavigateToSuppliers
 }) => {
   const { t, currentLanguage, changeLanguage } = useTranslation();
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -97,7 +99,7 @@ export const Navigation: React.FC<NavigationProps> = ({
       label: t.suppliers,
       type: 'dropdown',
       items: [
-        { name: 'Find Suppliers', icon: Search, description: 'Search verified suppliers', href: '/suppliers' },
+        { name: 'Find Suppliers', icon: Search, description: 'Search verified suppliers', href: '/suppliers', onClick: () => navigateToSuppliers() },
         { name: 'Supplier Directory', icon: Building2, description: 'Browse by category', href: '/directory' },
         { name: 'Top Rated', icon: Star, description: 'Highest rated suppliers', href: '/top-rated' },
         { name: 'Recently Added', icon: Sparkles, description: 'New suppliers', href: '/new' }
@@ -212,10 +214,10 @@ export const Navigation: React.FC<NavigationProps> = ({
     <div className="absolute top-full left-0 mt-1 w-80 bg-white/95 dark:bg-gray-800/95 backdrop-blur-md border border-gray-200/50 dark:border-gray-700/50 rounded-xl shadow-2xl z-50 overflow-hidden transition-colors duration-300">
       <div className="p-4">
         {items.map((item, index) => (
-          <a
+          <button
             key={index}
-            href={item.href}
-            className="group flex items-start space-x-3 p-3 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors duration-300"
+            onClick={item.onClick || (() => window.location.href = item.href)}
+            className="group flex items-start space-x-3 p-3 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors duration-300 w-full text-left"
           >
             <div className="p-2 bg-gray-100 dark:bg-gray-700 rounded-lg group-hover:bg-blue-100 dark:group-hover:bg-blue-900/30 transition-colors duration-300">
               <item.icon className="h-4 w-4 text-gray-600 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300" />
@@ -227,7 +229,7 @@ export const Navigation: React.FC<NavigationProps> = ({
               <p className="text-sm text-gray-600 dark:text-gray-400 mt-1 transition-colors duration-300">{item.description}</p>
             </div>
             <ArrowRight className="h-4 w-4 text-gray-400 dark:text-gray-500 group-hover:text-blue-600 dark:group-hover:text-blue-400 opacity-0 group-hover:opacity-100 transition-all duration-300" />
-          </a>
+          </button>
         ))}
       </div>
     </div>
@@ -336,7 +338,10 @@ export const Navigation: React.FC<NavigationProps> = ({
             onMouseLeave={handleMouseLeave}
             ref={(el) => (dropdownRefs.current[item.id] = el)}
           >
-            <button className="flex items-center space-x-1 px-4 py-2 text-gray-700 hover:text-blue-600 font-medium transition-colors rounded-lg hover:bg-blue-50">
+            <button 
+              className="flex items-center space-x-1 px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors rounded-lg hover:bg-blue-50 dark:hover:bg-gray-800"
+              onClick={item.id === 'suppliers' ? onNavigateToSuppliers : undefined}
+            >
               <span>{item.label}</span>
               <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${
                 activeDropdown === item.id ? 'rotate-180' : ''

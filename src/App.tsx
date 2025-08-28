@@ -6,6 +6,7 @@ import { Navigation } from './components/Navigation';
 import { Breadcrumb } from './components/Breadcrumb';
 import { SearchBar } from './components/SearchBar';
 import { AdminDashboard } from './components/AdminDashboard';
+import { SuppliersPage } from './components/SuppliersPage';
 import { useDarkMode } from './hooks/useDarkMode';
 import { useAuth } from './hooks/useAuth';
 import { useTranslation } from './hooks/useTranslation';
@@ -16,13 +17,15 @@ const App: React.FC = () => {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
   const { user, isAuthenticated, initializeAuth, logout } = useAuth();
-  const [currentPage, setCurrentPage] = useState<'home' | 'admin'>('home');
+  const [currentPage, setCurrentPage] = useState<'home' | 'admin' | 'suppliers'>('home');
 
   // Check URL for admin page
   useEffect(() => {
     const path = window.location.pathname;
     if (path === '/admin') {
       setCurrentPage('admin');
+    } else if (path === '/suppliers') {
+      setCurrentPage('suppliers');
     } else {
       setCurrentPage('home');
     }
@@ -34,6 +37,8 @@ const App: React.FC = () => {
       const path = window.location.pathname;
       if (path === '/admin') {
         setCurrentPage('admin');
+      } else if (path === '/suppliers') {
+        setCurrentPage('suppliers');
       } else {
         setCurrentPage('home');
       }
@@ -46,6 +51,11 @@ const App: React.FC = () => {
   const navigateToAdmin = () => {
     window.history.pushState({}, '', '/admin');
     setCurrentPage('admin');
+  };
+
+  const navigateToSuppliers = () => {
+    window.history.pushState({}, '', '/suppliers');
+    setCurrentPage('suppliers');
   };
 
   const navigateToHome = () => {
@@ -74,6 +84,11 @@ const App: React.FC = () => {
   // Render admin page
   if (currentPage === 'admin') {
     return <AdminDashboard />;
+  }
+
+  // Render suppliers page
+  if (currentPage === 'suppliers') {
+    return <SuppliersPage />;
   }
 
   return (
@@ -184,6 +199,7 @@ const App: React.FC = () => {
                 setShowAuthModal(true);
               }}
               onLogout={handleLogout}
+              onNavigateToSuppliers={navigateToSuppliers}
             />
           </div>
         </div>

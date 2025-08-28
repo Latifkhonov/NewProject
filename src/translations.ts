@@ -1374,7 +1374,7 @@ export const translations: Record<string, Translations> = {
     systemModeDesc: "跟随系统设置",
     selectTheme: "选择主题",
     switchToLight: "切换到浅色模式",
-    switchToDark: "切换到深色模式"
+    switchToDark: "切换到深色模式",
 
     // Accessibility
     categoriesList: "产品类别",

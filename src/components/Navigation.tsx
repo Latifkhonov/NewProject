@@ -19,13 +19,9 @@ import {
   Shield,
   Sparkles
 } from 'lucide-react';
+import { useTranslation } from '../hooks/useTranslation';
 
 interface NavigationProps {
-  currentLanguage: string;
-  translations: any;
-  onLanguageChange: (lang: string) => void;
-  showLanguageDropdown: boolean;
-  setShowLanguageDropdown: (show: boolean) => void;
   isAuthenticated: boolean;
   user: any;
   onLogin: () => void;
@@ -41,19 +37,16 @@ interface NavItem {
 }
 
 export const Navigation: React.FC<NavigationProps> = ({
-  currentLanguage,
-  translations: t,
-  onLanguageChange,
-  showLanguageDropdown,
-  setShowLanguageDropdown,
   isAuthenticated,
   user,
   onLogin,
   onRegister,
   onLogout
 }) => {
+  const { t, currentLanguage, changeLanguage } = useTranslation();
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const dropdownRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
   const timeoutRef = useRef<NodeJS.Timeout>();
@@ -249,7 +242,7 @@ export const Navigation: React.FC<NavigationProps> = ({
       <div className="absolute right-0 top-0 h-full w-80 bg-white shadow-2xl">
         <div className="p-6">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-xl font-bold text-gray-900">Menu</h2>
+            <h2 className="text-xl font-bold text-gray-900">{t.menu}</h2>
             <button
               onClick={() => setIsMobileMenuOpen(false)}
               className="p-2 rounded-lg hover:bg-gray-100"
@@ -300,12 +293,12 @@ export const Navigation: React.FC<NavigationProps> = ({
           <div className="mt-8 space-y-3">
             {isAuthenticated && user ? (
               <>
-                <p className="text-sm text-gray-600">Welcome, {user.name}</p>
+                <p className="text-sm text-gray-600">{t.welcome}, {user.name}</p>
                 <button
                   onClick={onLogout}
                   className="w-full bg-gray-100 text-gray-700 py-3 rounded-lg font-medium"
                 >
-                  Logout
+                  {t.logout}
                 </button>
               </>
             ) : (
@@ -322,7 +315,7 @@ export const Navigation: React.FC<NavigationProps> = ({
                 >
                   {t.register}
                 </button>
-              </>
+              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             )}
           </div>
         </div>
@@ -387,7 +380,10 @@ export const Navigation: React.FC<NavigationProps> = ({
             {Object.entries(t.languages).map(([code, name]) => (
               <button
                 key={code}
-                onClick={() => onLanguageChange(code)}
+                onClick={() => {
+                  changeLanguage(code as any);
+                  setShowLanguageDropdown(false);
+                }}
                 className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 transition-colors ${
                   currentLanguage === code ? 'bg-blue-50 text-blue-600' : 'text-gray-700'
                 }`}
@@ -403,12 +399,12 @@ export const Navigation: React.FC<NavigationProps> = ({
       <div className="flex items-center space-x-3">
         {isAuthenticated && user ? (
           <>
-            <span className="hidden sm:inline text-sm text-gray-700">Welcome, {user.name}</span>
+            <span className="hidden sm:inline text-sm text-gray-700">{t.welcome}, {user.name}</span>
             <button
               onClick={onLogout}
               className="px-4 py-2 text-gray-700 hover:text-blue-600 font-medium transition-colors rounded-lg hover:bg-gray-100"
             >
-              Logout
+              {t.logout}
             </button>
           </>
         ) : (

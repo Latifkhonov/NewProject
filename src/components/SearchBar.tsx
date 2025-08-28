@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Search, MapPin, Filter, X, Clock, TrendingUp } from 'lucide-react';
+import { useTranslation } from '../hooks/useTranslation';
 
 interface SearchBarProps {
   onSearch?: (query: string, location: string, filters: any) => void;
-  placeholder?: string;
   showFilters?: boolean;
   className?: string;
 }
@@ -17,19 +17,19 @@ interface SearchSuggestion {
 
 export const SearchBar: React.FC<SearchBarProps> = ({
   onSearch,
-  placeholder = "What product or service are you looking for?",
   showFilters = true,
   className = ''
 }) => {
+  const { t } = useTranslation();
   const [query, setQuery] = useState('');
   const [location, setLocation] = useState('');
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [isFilterPanelOpen, setIsFilterPanelOpen] = useState(false);
   const [recentSearches] = useState([
-    'CNC Machining',
-    'Steel Suppliers',
-    'Electronic Components',
-    'Injection Molding'
+    t.searchSuggestions || 'CNC Machining',
+    t.searchSuggestions || 'Steel Suppliers',
+    t.searchSuggestions || 'Electronic Components',
+    t.searchSuggestions || 'Injection Molding'
   ]);
   
   const searchRef = useRef<HTMLDivElement>(null);
@@ -94,7 +94,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
               }}
               onFocus={() => setShowSuggestions(true)}
               onKeyPress={handleKeyPress}
-              placeholder={placeholder}
+              placeholder={t.searchPlaceholder}
               className="w-full pl-12 pr-4 py-4 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset"
             />
             {query && (
@@ -115,7 +115,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
               value={location}
               onChange={(e) => setLocation(e.target.value)}
               onKeyPress={handleKeyPress}
-              placeholder="Location (City, Region)"
+              placeholder={t.locationPlaceholder}
               className="w-full pl-12 pr-4 py-4 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset"
             />
           </div>
@@ -134,7 +134,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
               onClick={handleSearch}
               className="px-8 py-4 bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-colors"
             >
-              Search
+              {t.searchButton}
             </button>
           </div>
         </div>
@@ -147,7 +147,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
             <div className="p-4">
               <h3 className="text-sm font-semibold text-gray-900 mb-3 flex items-center">
                 <Search className="h-4 w-4 mr-2" />
-                Search Suggestions
+                {t.searchSuggestions}
               </h3>
               {filteredSuggestions.length > 0 ? (
                 <div className="space-y-1">
@@ -178,21 +178,21 @@ export const SearchBar: React.FC<SearchBarProps> = ({
                           </div>
                         </div>
                         {suggestion.count && (
-                          <span className="text-xs text-gray-400">{suggestion.count}+ results</span>
+                          <span className="text-xs text-gray-400">{suggestion.count}+ {t.results}</span>
                         )}
                       </div>
                     </button>
                   ))}
                 </div>
               ) : (
-                <p className="text-sm text-gray-500 py-4">No suggestions found</p>
+                <p className="text-sm text-gray-500 py-4">{t.noSuggestions}</p>
               )}
             </div>
           ) : (
             <div className="p-4">
               <h3 className="text-sm font-semibold text-gray-900 mb-3 flex items-center">
                 <Clock className="h-4 w-4 mr-2" />
-                Recent Searches
+                {t.recentSearches}
               </h3>
               <div className="space-y-1">
                 {recentSearches.map((search, index) => (

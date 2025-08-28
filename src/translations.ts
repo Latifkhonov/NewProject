@@ -181,6 +181,68 @@ export interface Translations {
     ru: string;
     zh: string;
   };
+
+  // Navigation Elements
+  menu: string;
+  close: string;
+  welcome: string;
+  logout: string;
+  
+  // Search Elements
+  searchPlaceholder: string;
+  locationPlaceholder: string;
+  searchButton: string;
+  noSuggestions: string;
+  recentSearches: string;
+  searchSuggestions: string;
+  results: string;
+  
+  // Category Elements
+  popularCategories: string;
+  featuredSuppliers: string;
+  howItWorks: string;
+  search: string;
+  connect: string;
+  partner: string;
+  searchDescription: string;
+  connectDescription: string;
+  partnerDescription: string;
+  
+  // Supplier Elements
+  verified: string;
+  viewProfile: string;
+  location: string;
+  category: string;
+  
+  // CTA Elements
+  readyToFind: string;
+  joinThousands: string;
+  startSearching: string;
+  listYourCompany: string;
+  
+  // Common Elements
+  loading: string;
+  error: string;
+  success: string;
+  cancel: string;
+  save: string;
+  edit: string;
+  delete: string;
+  confirm: string;
+  back: string;
+  next: string;
+  previous: string;
+  
+  // Form Elements
+  required: string;
+  optional: string;
+  submit: string;
+  reset: string;
+  
+  // Status Messages
+  noResults: string;
+  tryAgain: string;
+  somethingWentWrong: string;
 }
 
 export const translations: Record<string, Translations> = {
@@ -366,7 +428,69 @@ export const translations: Record<string, Translations> = {
       uz: "O'zbek",
       ru: "Русский",
       zh: "中文"
-    }
+    },
+
+    // Navigation Elements
+    menu: "Menu",
+    close: "Close",
+    welcome: "Welcome",
+    logout: "Logout",
+    
+    // Search Elements
+    searchPlaceholder: "What product or service are you looking for?",
+    locationPlaceholder: "Location (City, Region)",
+    searchButton: "Search",
+    noSuggestions: "No suggestions found",
+    recentSearches: "Recent Searches",
+    searchSuggestions: "Search Suggestions",
+    results: "results",
+    
+    // Category Elements
+    popularCategories: "Popular Categories",
+    featuredSuppliers: "Featured Suppliers",
+    howItWorks: "How It Works",
+    search: "Search",
+    connect: "Connect",
+    partner: "Partner",
+    searchDescription: "Search our database of verified suppliers by product, service, or location",
+    connectDescription: "Review supplier profiles and connect directly with the right companies",
+    partnerDescription: "Build lasting partnerships with trusted suppliers for your business needs",
+    
+    // Supplier Elements
+    verified: "Verified",
+    viewProfile: "View Profile",
+    location: "Location",
+    category: "Category",
+    
+    // CTA Elements
+    readyToFind: "Ready to Find Your Next Supplier?",
+    joinThousands: "Join thousands of businesses connecting with suppliers in Uzbekistan",
+    startSearching: "Start Searching",
+    listYourCompany: "List Your Company",
+    
+    // Common Elements
+    loading: "Loading...",
+    error: "Error",
+    success: "Success",
+    cancel: "Cancel",
+    save: "Save",
+    edit: "Edit",
+    delete: "Delete",
+    confirm: "Confirm",
+    back: "Back",
+    next: "Next",
+    previous: "Previous",
+    
+    // Form Elements
+    required: "Required",
+    optional: "Optional",
+    submit: "Submit",
+    reset: "Reset",
+    
+    // Status Messages
+    noResults: "No results found",
+    tryAgain: "Try again",
+    somethingWentWrong: "Something went wrong"
   },
 
   uz: {
@@ -551,7 +675,69 @@ export const translations: Record<string, Translations> = {
       uz: "O'zbek",
       ru: "Русский",
       zh: "中文"
-    }
+    },
+
+    // Navigation Elements
+    menu: "Menyu",
+    close: "Yopish",
+    welcome: "Xush kelibsiz",
+    logout: "Chiqish",
+    
+    // Search Elements
+    searchPlaceholder: "Qanday mahsulot yoki xizmat qidiryapsiz?",
+    locationPlaceholder: "Joylashuv (Shahar, Viloyat)",
+    searchButton: "Qidirish",
+    noSuggestions: "Takliflar topilmadi",
+    recentSearches: "So'nggi Qidiruvlar",
+    searchSuggestions: "Qidiruv Takliflari",
+    results: "natija",
+    
+    // Category Elements
+    popularCategories: "Mashhur Toifalar",
+    featuredSuppliers: "Taniqli Ta'minotchilar",
+    howItWorks: "Qanday Ishlaydi",
+    search: "Qidirish",
+    connect: "Bog'lanish",
+    partner: "Hamkorlik",
+    searchDescription: "Mahsulot, xizmat yoki joylashuv bo'yicha tasdiqlangan ta'minotchilar bazasini qidiring",
+    connectDescription: "Ta'minotchi profillarini ko'rib chiqing va to'g'ri kompaniyalar bilan bevosita bog'laning",
+    partnerDescription: "Biznes ehtiyojlaringiz uchun ishonchli ta'minotchilar bilan uzoq muddatli hamkorlik o'rnating",
+    
+    // Supplier Elements
+    verified: "Tasdiqlangan",
+    viewProfile: "Profilni Ko'rish",
+    location: "Joylashuv",
+    category: "Toifa",
+    
+    // CTA Elements
+    readyToFind: "Keyingi Ta'minotchingizni Topishga Tayyormisiz?",
+    joinThousands: "O'zbekistondagi ta'minotchilar bilan bog'lanayotgan minglab biznesga qo'shiling",
+    startSearching: "Qidirishni Boshlash",
+    listYourCompany: "Kompaniyangizni Ro'yxatga Olish",
+    
+    // Common Elements
+    loading: "Yuklanmoqda...",
+    error: "Xato",
+    success: "Muvaffaqiyat",
+    cancel: "Bekor qilish",
+    save: "Saqlash",
+    edit: "Tahrirlash",
+    delete: "O'chirish",
+    confirm: "Tasdiqlash",
+    back: "Orqaga",
+    next: "Keyingi",
+    previous: "Oldingi",
+    
+    // Form Elements
+    required: "Majburiy",
+    optional: "Ixtiyoriy",
+    submit: "Yuborish",
+    reset: "Qayta o'rnatish",
+    
+    // Status Messages
+    noResults: "Natijalar topilmadi",
+    tryAgain: "Qayta urinib ko'ring",
+    somethingWentWrong: "Nimadir noto'g'ri ketdi"
   },
 
   ru: {
@@ -736,7 +922,69 @@ export const translations: Record<string, Translations> = {
       uz: "O'zbek",
       ru: "Русский",
       zh: "中文"
-    }
+    },
+
+    // Navigation Elements
+    menu: "Меню",
+    close: "Закрыть",
+    welcome: "Добро пожаловать",
+    logout: "Выйти",
+    
+    // Search Elements
+    searchPlaceholder: "Какой продукт или услугу вы ищете?",
+    locationPlaceholder: "Местоположение (Город, Регион)",
+    searchButton: "Поиск",
+    noSuggestions: "Предложения не найдены",
+    recentSearches: "Недавние Поиски",
+    searchSuggestions: "Предложения Поиска",
+    results: "результатов",
+    
+    // Category Elements
+    popularCategories: "Популярные Категории",
+    featuredSuppliers: "Рекомендуемые Поставщики",
+    howItWorks: "Как Это Работает",
+    search: "Поиск",
+    connect: "Связаться",
+    partner: "Партнерство",
+    searchDescription: "Ищите в нашей базе проверенных поставщиков по продукту, услуге или местоположению",
+    connectDescription: "Просматривайте профили поставщиков и связывайтесь напрямую с нужными компаниями",
+    partnerDescription: "Создавайте долгосрочные партнерские отношения с надежными поставщиками для ваших бизнес-потребностей",
+    
+    // Supplier Elements
+    verified: "Проверено",
+    viewProfile: "Посмотреть Профиль",
+    location: "Местоположение",
+    category: "Категория",
+    
+    // CTA Elements
+    readyToFind: "Готовы Найти Следующего Поставщика?",
+    joinThousands: "Присоединяйтесь к тысячам предприятий, связывающихся с поставщиками в Узбекистане",
+    startSearching: "Начать Поиск",
+    listYourCompany: "Разместить Вашу Компанию",
+    
+    // Common Elements
+    loading: "Загрузка...",
+    error: "Ошибка",
+    success: "Успех",
+    cancel: "Отмена",
+    save: "Сохранить",
+    edit: "Редактировать",
+    delete: "Удалить",
+    confirm: "Подтвердить",
+    back: "Назад",
+    next: "Далее",
+    previous: "Предыдущий",
+    
+    // Form Elements
+    required: "Обязательно",
+    optional: "Необязательно",
+    submit: "Отправить",
+    reset: "Сбросить",
+    
+    // Status Messages
+    noResults: "Результаты не найдены",
+    tryAgain: "Попробуйте снова",
+    somethingWentWrong: "Что-то пошло не так"
   },
 
   zh: {
@@ -921,6 +1169,68 @@ export const translations: Record<string, Translations> = {
       uz: "O'zbek",
       ru: "Русский",
       zh: "中文"
-    }
+    },
+
+    // Navigation Elements
+    menu: "菜单",
+    close: "关闭",
+    welcome: "欢迎",
+    logout: "退出",
+    
+    // Search Elements
+    searchPlaceholder: "您在寻找什么产品或服务？",
+    locationPlaceholder: "位置（城市，地区）",
+    searchButton: "搜索",
+    noSuggestions: "未找到建议",
+    recentSearches: "最近搜索",
+    searchSuggestions: "搜索建议",
+    results: "结果",
+    
+    // Category Elements
+    popularCategories: "热门类别",
+    featuredSuppliers: "精选供应商",
+    howItWorks: "工作原理",
+    search: "搜索",
+    connect: "连接",
+    partner: "合作",
+    searchDescription: "按产品、服务或位置搜索我们的经过验证的供应商数据库",
+    connectDescription: "查看供应商档案并直接与合适的公司联系",
+    partnerDescription: "与值得信赖的供应商建立长期合作伙伴关系，满足您的业务需求",
+    
+    // Supplier Elements
+    verified: "已验证",
+    viewProfile: "查看档案",
+    location: "位置",
+    category: "类别",
+    
+    // CTA Elements
+    readyToFind: "准备寻找下一个供应商？",
+    joinThousands: "加入数千家与乌兹别克斯坦供应商联系的企业",
+    startSearching: "开始搜索",
+    listYourCompany: "列出您的公司",
+    
+    // Common Elements
+    loading: "加载中...",
+    error: "错误",
+    success: "成功",
+    cancel: "取消",
+    save: "保存",
+    edit: "编辑",
+    delete: "删除",
+    confirm: "确认",
+    back: "返回",
+    next: "下一个",
+    previous: "上一个",
+    
+    // Form Elements
+    required: "必填",
+    optional: "可选",
+    submit: "提交",
+    reset: "重置",
+    
+    // Status Messages
+    noResults: "未找到结果",
+    tryAgain: "再试一次",
+    somethingWentWrong: "出了点问题"
   }
 };

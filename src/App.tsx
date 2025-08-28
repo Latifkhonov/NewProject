@@ -1,32 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { Globe, ChevronDown, Play, Star, Users, Building2, TrendingUp, Award, CheckCircle, ArrowRight, Phone, Mail, MapPin, Sparkles, Zap, Shield, Factory, Wrench, Truck, Settings, Search } from 'lucide-react';
-import { translations, Translations } from './translations';
 import { LoginForm } from './components/LoginForm';
 import { RegisterForm } from './components/RegisterForm';
 import { Navigation } from './components/Navigation';
 import { Breadcrumb } from './components/Breadcrumb';
 import { SearchBar } from './components/SearchBar';
 import { useAuth } from './hooks/useAuth';
-
-type Language = 'en' | 'uz' | 'ru' | 'zh';
+import { useTranslation } from './hooks/useTranslation';
 
 const App: React.FC = () => {
-  const [currentLanguage, setCurrentLanguage] = useState<Language>('en');
-  const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
+  const { t } = useTranslation();
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
   const { user, isAuthenticated, initializeAuth, logout } = useAuth();
 
-  const t: Translations = translations[currentLanguage];
 
   useEffect(() => {
     initializeAuth();
   }, [initializeAuth]);
 
-  const handleLanguageChange = (lang: Language) => {
-    setCurrentLanguage(lang);
-    setShowLanguageDropdown(false);
-  };
 
   const handleAuthSuccess = () => {
     setShowAuthModal(false);
@@ -138,11 +130,6 @@ const App: React.FC = () => {
 
             {/* Navigation Component */}
             <Navigation
-              currentLanguage={currentLanguage}
-              translations={t}
-              onLanguageChange={handleLanguageChange}
-              showLanguageDropdown={showLanguageDropdown}
-              setShowLanguageDropdown={setShowLanguageDropdown}
               isAuthenticated={isAuthenticated}
               user={user}
               onLogin={() => {
@@ -164,7 +151,7 @@ const App: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumb
             items={[
-              { label: 'Industrial Suppliers', active: true }
+              { label: t.suppliers, active: true }
             ]}
           />
         </div>
@@ -175,10 +162,10 @@ const App: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Find Industrial Suppliers in Uzbekistan
+              {t.heroTitle}
             </h1>
             <p className="text-xl mb-8 max-w-3xl mx-auto opacity-90">
-              Connect with verified suppliers, manufacturers, and distributors across all industrial sectors
+              {t.heroSubtitle}
             </p>
             
             {/* Enhanced Search Bar */}
@@ -191,15 +178,15 @@ const App: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
               <div className="text-center">
                 <div className="text-3xl font-bold">15,000+</div>
-                <div className="text-sm opacity-90">Verified Suppliers</div>
+                <div className="text-sm opacity-90">{t.verifiedSuppliers}</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold">500+</div>
-                <div className="text-sm opacity-90">Product Categories</div>
+                <div className="text-sm opacity-90">{t.productCategories}</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold">50,000+</div>
-                <div className="text-sm opacity-90">Monthly Searches</div>
+                <div className="text-sm opacity-90">{t.monthlySearches}</div>
               </div>
             </div>
           </div>
@@ -209,16 +196,16 @@ const App: React.FC = () => {
       {/* Popular Categories - Thomas Net Style */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Popular Categories</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">{t.popularCategories}</h2>
           
           <div className="category-grid">
             {[
-              { name: 'Manufacturing & Processing', icon: Factory, count: '3,200+ suppliers', color: 'bg-blue-500' },
-              { name: 'Industrial Equipment', icon: Settings, count: '2,800+ suppliers', color: 'bg-green-500' },
-              { name: 'Materials & Components', icon: Wrench, count: '4,100+ suppliers', color: 'bg-purple-500' },
-              { name: 'Transportation & Logistics', icon: Truck, count: '1,900+ suppliers', color: 'bg-orange-500' },
-              { name: 'Electronics & Technology', icon: Zap, count: '2,400+ suppliers', color: 'bg-indigo-500' },
-              { name: 'Construction & Building', icon: Building2, count: '3,600+ suppliers', color: 'bg-red-500' }
+              { name: t.manufacturing || 'Manufacturing & Processing', icon: Factory, count: `3,200+ ${t.suppliersCount}`, color: 'bg-blue-500' },
+              { name: t.industrialEquipment || 'Industrial Equipment', icon: Settings, count: `2,800+ ${t.suppliersCount}`, color: 'bg-green-500' },
+              { name: t.materials || 'Materials & Components', icon: Wrench, count: `4,100+ ${t.suppliersCount}`, color: 'bg-purple-500' },
+              { name: t.transportation || 'Transportation & Logistics', icon: Truck, count: `1,900+ ${t.suppliersCount}`, color: 'bg-orange-500' },
+              { name: t.electronics, icon: Zap, count: `2,400+ ${t.suppliersCount}`, color: 'bg-indigo-500' },
+              { name: t.construction, icon: Building2, count: `3,600+ ${t.suppliersCount}`, color: 'bg-red-500' }
             ].map((category, index) => (
               <div key={index} className="thomas-card p-6 rounded-lg cursor-pointer">
                 <div className="flex items-center mb-4">
@@ -231,7 +218,7 @@ const App: React.FC = () => {
                   </div>
                 </div>
                 <div className="flex items-center text-blue-600 text-sm font-medium">
-                  View Suppliers <ArrowRight className="h-4 w-4 ml-1" />
+                  {t.viewProfile} <ArrowRight className="h-4 w-4 ml-1" />
                 </div>
               </div>
             ))}
@@ -242,7 +229,7 @@ const App: React.FC = () => {
       {/* Featured Suppliers */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Featured Suppliers</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">{t.featuredSuppliers}</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
@@ -259,7 +246,7 @@ const App: React.FC = () => {
                   {supplier.verified && (
                     <div className="flex items-center text-green-600 text-xs">
                       <CheckCircle className="h-4 w-4 mr-1" />
-                      Verified
+                      {t.verified}
                     </div>
                   )}
                 </div>
@@ -269,7 +256,7 @@ const App: React.FC = () => {
                   {supplier.location}
                 </p>
                 <button className="w-full thomas-button py-2 rounded-md text-sm font-medium">
-                  View Profile
+                  {t.viewProfile}
                 </button>
               </div>
             ))}
@@ -280,29 +267,29 @@ const App: React.FC = () => {
       {/* How It Works */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">How It Works</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">{t.howItWorks}</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
               <div className="bg-blue-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Search className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">1. Search</h3>
-              <p className="text-gray-600">Search our database of verified suppliers by product, service, or location</p>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">1. {t.search}</h3>
+              <p className="text-gray-600">{t.searchDescription}</p>
             </div>
             <div className="text-center">
               <div className="bg-green-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Users className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">2. Connect</h3>
-              <p className="text-gray-600">Review supplier profiles and connect directly with the right companies</p>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">2. {t.connect}</h3>
+              <p className="text-gray-600">{t.connectDescription}</p>
             </div>
             <div className="text-center">
               <div className="bg-purple-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Award className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">3. Partner</h3>
-              <p className="text-gray-600">Build lasting partnerships with trusted suppliers for your business needs</p>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">3. {t.partner}</h3>
+              <p className="text-gray-600">{t.partnerDescription}</p>
             </div>
           </div>
         </div>
@@ -311,14 +298,14 @@ const App: React.FC = () => {
       {/* CTA Section */}
       <section className="py-16 thomas-gradient text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold mb-6">Ready to Find Your Next Supplier?</h2>
-          <p className="text-xl mb-8 opacity-90">Join thousands of businesses connecting with suppliers in Uzbekistan</p>
+          <h2 className="text-3xl font-bold mb-6">{t.readyToFind}</h2>
+          <p className="text-xl mb-8 opacity-90">{t.joinThousands}</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button className="bg-white text-blue-600 px-8 py-3 rounded-md font-semibold hover:bg-gray-100 transition-colors">
-              Start Searching
+              {t.startSearching}
             </button>
             <button className="border-2 border-white text-white px-8 py-3 rounded-md font-semibold hover:bg-white hover:text-blue-600 transition-colors">
-              List Your Company
+              {t.listYourCompany}
             </button>
           </div>
         </div>

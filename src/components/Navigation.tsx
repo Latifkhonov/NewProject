@@ -379,31 +379,32 @@ export const Navigation: React.FC<NavigationProps> = ({
         {showLanguageDropdown && (
           <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-xl shadow-lg py-2 z-50 border border-gray-200 dark:border-gray-700">
             {Object.entries(t.languages).map(([code, name]) => (
-              {user.role === 'admin' && (
+              <React.Fragment key={code}>
+                {user.role === 'admin' && (
+                  <button
+                    onClick={() => {
+                      window.history.pushState({}, '', '/admin');
+                      window.location.reload();
+                    }}
+                    className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                  >
+                    Admin
+                  </button>
+                )}
                 <button
                   onClick={() => {
-                    window.history.pushState({}, '', '/admin');
-                    window.location.reload();
+                    changeLanguage(code as any);
+                    setShowLanguageDropdown(false);
                   }}
-                  className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                  className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${
+                    currentLanguage === code 
+                      ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' 
+                      : 'text-gray-700 dark:text-gray-300'
+                  }`}
                 >
-                  Admin
+                  {name}
                 </button>
-              )}
-              <button
-                key={code}
-                onClick={() => {
-                  changeLanguage(code as any);
-                  setShowLanguageDropdown(false);
-                }}
-                className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${
-                  currentLanguage === code 
-                    ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' 
-                    : 'text-gray-700 dark:text-gray-300'
-                }`}
-              >
-                {name}
-              </button>
+              </React.Fragment>
             ))}
           </div>
         )}

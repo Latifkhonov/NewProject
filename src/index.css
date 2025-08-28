@@ -102,6 +102,51 @@
   }
 }
 
+/* Custom Cursor */
+* {
+  cursor: url('/cursor-png-1120.png') 16 16, auto !important;
+}
+
+/* Specific cursor states */
+a, button, [role="button"], input[type="submit"], input[type="button"] {
+  cursor: url('/cursor-png-1120.png') 16 16, pointer !important;
+}
+
+input[type="text"], input[type="email"], input[type="password"], input[type="search"], textarea, select {
+  cursor: url('/cursor-png-1120.png') 16 16, text !important;
+}
+
+input[type="range"], input[type="checkbox"], input[type="radio"] {
+  cursor: url('/cursor-png-1120.png') 16 16, pointer !important;
+}
+
+.cursor-default {
+  cursor: url('/cursor-png-1120.png') 16 16, default !important;
+}
+
+.cursor-pointer {
+  cursor: url('/cursor-png-1120.png') 16 16, pointer !important;
+}
+
+.cursor-text {
+  cursor: url('/cursor-png-1120.png') 16 16, text !important;
+}
+
+.cursor-not-allowed {
+  cursor: url('/cursor-png-1120.png') 16 16, not-allowed !important;
+}
+
+.cursor-wait {
+  cursor: url('/cursor-png-1120.png') 16 16, wait !important;
+}
+
+.cursor-grab {
+  cursor: url('/cursor-png-1120.png') 16 16, grab !important;
+}
+
+.cursor-grabbing {
+  cursor: url('/cursor-png-1120.png') 16 16, grabbing !important;
+}
 /* Custom utility classes using CSS variables */
 @layer utilities {
   .bg-theme-primary {

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Globe, ChevronDown, Play, Star, Users, Building2, TrendingUp, Award, CheckCircle, ArrowRight, Phone, Mail, MapPin, Sparkles, Zap, Shield, Factory, Wrench, Truck, Settings, Search } from 'lucide-react';
+import { Globe, ChevronDown, Play, Star, Users, Building2, TrendingUp, Award, CheckCircle, ArrowRight, Phone, Mail, MapPin, Sparkles, Zap, Shield, Factory, Wrench, Truck, Settings, Search, X } from 'lucide-react';
 import { LoginForm } from './components/LoginForm';
 import { RegisterForm } from './components/RegisterForm';
 import { Navigation } from './components/Navigation';
 import { Breadcrumb } from './components/Breadcrumb';
 import { SearchBar } from './components/SearchBar';
+import { AdminDashboard } from './components/AdminDashboard';
 import { useDarkMode } from './hooks/useDarkMode';
 import { useAuth } from './hooks/useAuth';
 import { useTranslation } from './hooks/useTranslation';
@@ -15,7 +16,42 @@ const App: React.FC = () => {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
   const { user, isAuthenticated, initializeAuth, logout } = useAuth();
+  const [currentPage, setCurrentPage] = useState<'home' | 'admin'>('home');
 
+  // Check URL for admin page
+  useEffect(() => {
+    const path = window.location.pathname;
+    if (path === '/admin') {
+      setCurrentPage('admin');
+    } else {
+      setCurrentPage('home');
+    }
+  }, []);
+
+  // Handle browser navigation
+  useEffect(() => {
+    const handlePopState = () => {
+      const path = window.location.pathname;
+      if (path === '/admin') {
+        setCurrentPage('admin');
+      } else {
+        setCurrentPage('home');
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  const navigateToAdmin = () => {
+    window.history.pushState({}, '', '/admin');
+    setCurrentPage('admin');
+  };
+
+  const navigateToHome = () => {
+    window.history.pushState({}, '', '/');
+    setCurrentPage('home');
+  };
 
   useEffect(() => {
     initializeAuth();
@@ -34,6 +70,11 @@ const App: React.FC = () => {
     console.log('Search:', { query, location, filters });
     // Implement search logic here
   };
+
+  // Render admin page
+  if (currentPage === 'admin') {
+    return <AdminDashboard />;
+  }
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">

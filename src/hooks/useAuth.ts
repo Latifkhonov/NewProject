@@ -21,6 +21,21 @@ const mockLogin = async (credentials: LoginFormData): Promise<User> => {
     };
   }
   
+  // Admin login
+  if (credentials.email === 'admin@toptaklif.uz' && credentials.password === 'admin123') {
+    return {
+      id: 'admin1',
+      email: credentials.email,
+      name: 'System Administrator',
+      companyName: 'TopTaklif',
+      phone: '+998901234567',
+      companySize: '200+ employees',
+      role: 'admin',
+      isVerified: true,
+      createdAt: new Date().toISOString()
+    };
+  }
+  
   throw new Error('Invalid email or password');
 };
 

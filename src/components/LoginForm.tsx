@@ -184,7 +184,10 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToRegis
           <p className="text-xs text-blue-700">
             <strong>Demo credentials:</strong><br />
             Email: demo@example.com<br />
-            Password: password
+            Password: password<br /><br />
+            <strong>Admin credentials:</strong><br />
+            Email: admin@toptaklif.uz<br />
+            Password: admin123
           </p>
         </div>
       </div>

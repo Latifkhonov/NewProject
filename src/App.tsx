@@ -5,11 +5,13 @@ import { RegisterForm } from './components/RegisterForm';
 import { Navigation } from './components/Navigation';
 import { Breadcrumb } from './components/Breadcrumb';
 import { SearchBar } from './components/SearchBar';
+import { useDarkMode } from './hooks/useDarkMode';
 import { useAuth } from './hooks/useAuth';
 import { useTranslation } from './hooks/useTranslation';
 
 const App: React.FC = () => {
   const { t } = useTranslation();
+  const { isDark } = useDarkMode();
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
   const { user, isAuthenticated, initializeAuth, logout } = useAuth();
@@ -34,7 +36,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
       {/* Custom CSS for Thomas Net style */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
@@ -115,13 +117,13 @@ const App: React.FC = () => {
       `}</style>
 
       {/* Header - Thomas Net Style */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
+      <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <h1 className="text-2xl font-bold text-blue-600 flex items-center">
+                <h1 className="text-2xl font-bold text-blue-600 dark:text-blue-400 flex items-center">
                   <Factory className="h-8 w-8 mr-2" />
                   TopTaklif
                 </h1>
@@ -147,7 +149,7 @@ const App: React.FC = () => {
       </header>
 
       {/* Breadcrumb */}
-      <div className="bg-gray-50 py-2">
+      <div className="bg-gray-50 dark:bg-gray-800 py-2 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumb
             items={[
@@ -194,9 +196,9 @@ const App: React.FC = () => {
       </section>
 
       {/* Popular Categories - Thomas Net Style */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">{t.popularCategories}</h2>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">{t.popularCategories}</h2>
           
           <div className="category-grid">
             {[
@@ -207,17 +209,17 @@ const App: React.FC = () => {
               { name: t.electronics, icon: Zap, count: `2,400+ ${t.suppliersCount}`, color: 'bg-indigo-500' },
               { name: t.construction, icon: Building2, count: `3,600+ ${t.suppliersCount}`, color: 'bg-red-500' }
             ].map((category, index) => (
-              <div key={index} className="thomas-card p-6 rounded-lg cursor-pointer">
+              <div key={index} className="thomas-card dark:bg-gray-700 dark:border-gray-600 p-6 rounded-lg cursor-pointer transition-colors duration-300">
                 <div className="flex items-center mb-4">
                   <div className={`${category.color} p-3 rounded-lg mr-4`}>
                     <category.icon className="h-6 w-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900">{category.name}</h3>
-                    <p className="text-sm text-gray-600">{category.count}</p>
+                    <h3 className="font-semibold text-gray-900 dark:text-white">{category.name}</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-300">{category.count}</p>
                   </div>
                 </div>
-                <div className="flex items-center text-blue-600 text-sm font-medium">
+                <div className="flex items-center text-blue-600 dark:text-blue-400 text-sm font-medium">
                   {t.viewProfile} <ArrowRight className="h-4 w-4 ml-1" />
                 </div>
               </div>
@@ -227,9 +229,9 @@ const App: React.FC = () => {
       </section>
 
       {/* Featured Suppliers */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white dark:bg-gray-900 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">{t.featuredSuppliers}</h2>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">{t.featuredSuppliers}</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
@@ -240,9 +242,9 @@ const App: React.FC = () => {
               { name: 'Navoi Mining Solutions', location: 'Navoi', category: 'Mining Equipment', verified: true },
               { name: 'Andijan Auto Parts', location: 'Andijan', category: 'Automotive Components', verified: true }
             ].map((supplier, index) => (
-              <div key={index} className="supplier-card">
+              <div key={index} className="supplier-card dark:bg-gray-800 dark:border-gray-700 transition-colors duration-300">
                 <div className="flex items-start justify-between mb-3">
-                  <h3 className="font-semibold text-gray-900">{supplier.name}</h3>
+                  <h3 className="font-semibold text-gray-900 dark:text-white">{supplier.name}</h3>
                   {supplier.verified && (
                     <div className="flex items-center text-green-600 text-xs">
                       <CheckCircle className="h-4 w-4 mr-1" />
@@ -250,8 +252,8 @@ const App: React.FC = () => {
                     </div>
                   )}
                 </div>
-                <p className="text-sm text-gray-600 mb-2">{supplier.category}</p>
-                <p className="text-sm text-gray-500 mb-4 flex items-center">
+                <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">{supplier.category}</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-4 flex items-center">
                   <MapPin className="h-4 w-4 mr-1" />
                   {supplier.location}
                 </p>
@@ -265,31 +267,31 @@ const App: React.FC = () => {
       </section>
 
       {/* How It Works */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">{t.howItWorks}</h2>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-12 text-center">{t.howItWorks}</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
               <div className="bg-blue-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Search className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">1. {t.search}</h3>
-              <p className="text-gray-600">{t.searchDescription}</p>
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">1. {t.search}</h3>
+              <p className="text-gray-600 dark:text-gray-300">{t.searchDescription}</p>
             </div>
             <div className="text-center">
               <div className="bg-green-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Users className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">2. {t.connect}</h3>
-              <p className="text-gray-600">{t.connectDescription}</p>
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">2. {t.connect}</h3>
+              <p className="text-gray-600 dark:text-gray-300">{t.connectDescription}</p>
             </div>
             <div className="text-center">
               <div className="bg-purple-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Award className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">3. {t.partner}</h3>
-              <p className="text-gray-600">{t.partnerDescription}</p>
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">3. {t.partner}</h3>
+              <p className="text-gray-600 dark:text-gray-300">{t.partnerDescription}</p>
             </div>
           </div>
         </div>
@@ -312,7 +314,7 @@ const App: React.FC = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
+      <footer className="bg-gray-900 dark:bg-gray-950 text-white py-12 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
@@ -320,12 +322,12 @@ const App: React.FC = () => {
                 <Factory className="h-6 w-6 mr-2" />
                 TopTaklif
               </h3>
-              <p className="text-gray-400 mb-4">{t.footerDescription}</p>
+              <p className="text-gray-400 dark:text-gray-500 mb-4">{t.footerDescription}</p>
               <div className="flex space-x-4">
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <a href="#" className="text-gray-400 dark:text-gray-500 hover:text-white transition-colors">
                   <Mail className="h-5 w-5" />
                 </a>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <a href="#" className="text-gray-400 dark:text-gray-500 hover:text-white transition-colors">
                   <Phone className="h-5 w-5" />
                 </a>
               </div>
@@ -334,36 +336,36 @@ const App: React.FC = () => {
             <div>
               <h4 className="font-semibold mb-4">{t.products}</h4>
               <ul className="space-y-2">
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">{t.supplierSearch}</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">{t.rfqManagement}</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">{t.marketIntelligence}</a></li>
+                <li><a href="#" className="text-gray-400 dark:text-gray-500 hover:text-white transition-colors">{t.supplierSearch}</a></li>
+                <li><a href="#" className="text-gray-400 dark:text-gray-500 hover:text-white transition-colors">{t.rfqManagement}</a></li>
+                <li><a href="#" className="text-gray-400 dark:text-gray-500 hover:text-white transition-colors">{t.marketIntelligence}</a></li>
               </ul>
             </div>
 
             <div>
               <h4 className="font-semibold mb-4">{t.resources}</h4>
               <ul className="space-y-2">
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">{t.industryInsights}</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">{t.webinars}</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">{t.supportCenter}</a></li>
+                <li><a href="#" className="text-gray-400 dark:text-gray-500 hover:text-white transition-colors">{t.industryInsights}</a></li>
+                <li><a href="#" className="text-gray-400 dark:text-gray-500 hover:text-white transition-colors">{t.webinars}</a></li>
+                <li><a href="#" className="text-gray-400 dark:text-gray-500 hover:text-white transition-colors">{t.supportCenter}</a></li>
               </ul>
             </div>
 
             <div>
               <h4 className="font-semibold mb-4">{t.company}</h4>
               <ul className="space-y-2">
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">{t.aboutUs}</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">{t.careers}</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">{t.contact}</a></li>
+                <li><a href="#" className="text-gray-400 dark:text-gray-500 hover:text-white transition-colors">{t.aboutUs}</a></li>
+                <li><a href="#" className="text-gray-400 dark:text-gray-500 hover:text-white transition-colors">{t.careers}</a></li>
+                <li><a href="#" className="text-gray-400 dark:text-gray-500 hover:text-white transition-colors">{t.contact}</a></li>
               </ul>
             </div>
           </div>
 
-          <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400">{t.allRightsReserved}</p>
+          <div className="border-t border-gray-800 dark:border-gray-700 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <p className="text-gray-400 dark:text-gray-500">{t.allRightsReserved}</p>
             <div className="flex space-x-6 mt-4 md:mt-0">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">{t.privacyPolicy}</a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">{t.termsOfService}</a>
+              <a href="#" className="text-gray-400 dark:text-gray-500 hover:text-white transition-colors">{t.privacyPolicy}</a>
+              <a href="#" className="text-gray-400 dark:text-gray-500 hover:text-white transition-colors">{t.termsOfService}</a>
             </div>
           </div>
         </div>
@@ -371,13 +373,13 @@ const App: React.FC = () => {
 
       {/* Auth Modal */}
       {showAuthModal && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div className="fixed inset-0 bg-black/50 dark:bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-50">
           <div className="relative max-w-md w-full">
             <button
               onClick={() => setShowAuthModal(false)}
-              className="absolute -top-4 -right-4 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100 transition-colors z-10"
+              className="absolute -top-4 -right-4 bg-white dark:bg-gray-800 rounded-full p-2 shadow-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors z-10"
             >
-              <X className="h-5 w-5 text-gray-600" />
+              <X className="h-5 w-5 text-gray-600 dark:text-gray-300" />
             </button>
             
             {authMode === 'login' ? (

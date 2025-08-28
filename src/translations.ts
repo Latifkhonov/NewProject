@@ -243,6 +243,17 @@ export interface Translations {
   noResults: string;
   tryAgain: string;
   somethingWentWrong: string;
+
+  // Dark Mode
+  lightMode: string;
+  darkMode: string;
+  systemMode: string;
+  lightModeDesc: string;
+  darkModeDesc: string;
+  systemModeDesc: string;
+  selectTheme: string;
+  switchToLight: string;
+  switchToDark: string;
 }
 
 export const translations: Record<string, Translations> = {
@@ -490,7 +501,18 @@ export const translations: Record<string, Translations> = {
     // Status Messages
     noResults: "No results found",
     tryAgain: "Try again",
-    somethingWentWrong: "Something went wrong"
+    somethingWentWrong: "Something went wrong",
+
+    // Dark Mode
+    lightMode: "Light",
+    darkMode: "Dark",
+    systemMode: "System",
+    lightModeDesc: "Light theme",
+    darkModeDesc: "Dark theme",
+    systemModeDesc: "Follow system preference",
+    selectTheme: "Select theme",
+    switchToLight: "Switch to light mode",
+    switchToDark: "Switch to dark mode"
   },
 
   uz: {
@@ -737,7 +759,18 @@ export const translations: Record<string, Translations> = {
     // Status Messages
     noResults: "Natijalar topilmadi",
     tryAgain: "Qayta urinib ko'ring",
-    somethingWentWrong: "Nimadir noto'g'ri ketdi"
+    somethingWentWrong: "Nimadir noto'g'ri ketdi",
+
+    // Dark Mode
+    lightMode: "Yorug'",
+    darkMode: "Qorong'u",
+    systemMode: "Tizim",
+    lightModeDesc: "Yorug' mavzu",
+    darkModeDesc: "Qorong'u mavzu",
+    systemModeDesc: "Tizim sozlamalariga amal qilish",
+    selectTheme: "Mavzuni tanlang",
+    switchToLight: "Yorug' rejimga o'tish",
+    switchToDark: "Qorong'u rejimga o'tish"
   },
 
   ru: {
@@ -984,7 +1017,18 @@ export const translations: Record<string, Translations> = {
     // Status Messages
     noResults: "Результаты не найдены",
     tryAgain: "Попробуйте снова",
-    somethingWentWrong: "Что-то пошло не так"
+    somethingWentWrong: "Что-то пошло не так",
+
+    // Dark Mode
+    lightMode: "Светлая",
+    darkMode: "Темная",
+    systemMode: "Системная",
+    lightModeDesc: "Светлая тема",
+    darkModeDesc: "Темная тема",
+    systemModeDesc: "Следовать системным настройкам",
+    selectTheme: "Выбрать тему",
+    switchToLight: "Переключить на светлую тему",
+    switchToDark: "Переключить на темную тему"
   },
 
   zh: {
@@ -1231,6 +1275,17 @@ export const translations: Record<string, Translations> = {
     // Status Messages
     noResults: "未找到结果",
     tryAgain: "再试一次",
-    somethingWentWrong: "出了点问题"
+    somethingWentWrong: "出了点问题",
+
+    // Dark Mode
+    lightMode: "浅色",
+    darkMode: "深色",
+    systemMode: "系统",
+    lightModeDesc: "浅色主题",
+    darkModeDesc: "深色主题",
+    systemModeDesc: "跟随系统设置",
+    selectTheme: "选择主题",
+    switchToLight: "切换到浅色模式",
+    switchToDark: "切换到深色模式"
   }
 };

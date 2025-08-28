@@ -20,6 +20,7 @@ import {
   Sparkles
 } from 'lucide-react';
 import { useTranslation } from '../hooks/useTranslation';
+import { DarkModeToggle } from './DarkModeToggle';
 
 interface NavigationProps {
   isAuthenticated: boolean;
@@ -368,7 +369,7 @@ export const Navigation: React.FC<NavigationProps> = ({
       <div className="relative">
         <button
           onClick={() => setShowLanguageDropdown(!showLanguageDropdown)}
-          className="flex items-center space-x-2 px-3 py-2 text-gray-700 hover:text-blue-600 font-medium transition-colors rounded-lg hover:bg-blue-50"
+          className="flex items-center space-x-2 px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors rounded-lg hover:bg-blue-50 dark:hover:bg-gray-800"
         >
           <Globe className="h-4 w-4" />
           <span className="hidden sm:inline">{t.languages[currentLanguage]}</span>
@@ -376,7 +377,7 @@ export const Navigation: React.FC<NavigationProps> = ({
         </button>
         
         {showLanguageDropdown && (
-          <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg py-2 z-50 border border-gray-200">
+          <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-xl shadow-lg py-2 z-50 border border-gray-200 dark:border-gray-700">
             {Object.entries(t.languages).map(([code, name]) => (
               <button
                 key={code}
@@ -384,8 +385,10 @@ export const Navigation: React.FC<NavigationProps> = ({
                   changeLanguage(code as any);
                   setShowLanguageDropdown(false);
                 }}
-                className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 transition-colors ${
-                  currentLanguage === code ? 'bg-blue-50 text-blue-600' : 'text-gray-700'
+                className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${
+                  currentLanguage === code 
+                    ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' 
+                    : 'text-gray-700 dark:text-gray-300'
                 }`}
               >
                 {name}
@@ -395,6 +398,9 @@ export const Navigation: React.FC<NavigationProps> = ({
         )}
       </div>
 
+      {/* Dark Mode Toggle */}
+      <DarkModeToggle variant="dropdown" />
+
       {/* Auth Section */}
       <div className="flex items-center space-x-3">
         {isAuthenticated && user ? (
@@ -402,7 +408,7 @@ export const Navigation: React.FC<NavigationProps> = ({
             <span className="hidden sm:inline text-sm text-gray-700">{t.welcome}, {user.name}</span>
             <button
               onClick={onLogout}
-              className="px-4 py-2 text-gray-700 hover:text-blue-600 font-medium transition-colors rounded-lg hover:bg-gray-100"
+              className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
             >
               {t.logout}
             </button>
@@ -411,13 +417,13 @@ export const Navigation: React.FC<NavigationProps> = ({
           <>
             <button
               onClick={onLogin}
-              className="px-4 py-2 text-gray-700 hover:text-blue-600 font-medium transition-colors rounded-lg hover:bg-gray-100"
+              className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
             >
               {t.login}
             </button>
             <button
               onClick={onRegister}
-              className="px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
+              className="px-4 py-2 bg-blue-600 dark:bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors"
             >
               {t.register}
             </button>

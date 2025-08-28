@@ -102,37 +102,34 @@
   }
 }
 
-/* Custom Cursor */
-* {
+/* Custom Cursor Implementation */
+html, body, * {
   cursor: url('/cursor-png-1120.png') 16 16, auto !important;
 }
 
-/* Specific cursor states */
-a, button, [role="button"], input[type="submit"], input[type="button"] {
+/* Interactive elements */
+a, button, [role="button"], input[type="submit"], input[type="button"], 
+.cursor-pointer, [data-cursor="pointer"] {
   cursor: url('/cursor-png-1120.png') 16 16, pointer !important;
 }
 
-input[type="text"], input[type="email"], input[type="password"], input[type="search"], textarea, select {
+/* Text input elements */
+input[type="text"], input[type="email"], input[type="password"], 
+input[type="search"], textarea, select, .cursor-text {
   cursor: url('/cursor-png-1120.png') 16 16, text !important;
 }
 
+/* Form controls */
 input[type="range"], input[type="checkbox"], input[type="radio"] {
   cursor: url('/cursor-png-1120.png') 16 16, pointer !important;
 }
 
+/* Utility classes */
 .cursor-default {
   cursor: url('/cursor-png-1120.png') 16 16, default !important;
 }
 
-.cursor-pointer {
-  cursor: url('/cursor-png-1120.png') 16 16, pointer !important;
-}
-
-.cursor-text {
-  cursor: url('/cursor-png-1120.png') 16 16, text !important;
-}
-
-.cursor-not-allowed {
+.cursor-not-allowed, :disabled {
   cursor: url('/cursor-png-1120.png') 16 16, not-allowed !important;
 }
 
@@ -146,6 +143,11 @@ input[type="range"], input[type="checkbox"], input[type="radio"] {
 
 .cursor-grabbing {
   cursor: url('/cursor-png-1120.png') 16 16, grabbing !important;
+}
+
+/* Ensure cursor works on all interactive states */
+*:hover, *:focus, *:active {
+  cursor: inherit !important;
 }
 /* Custom utility classes using CSS variables */
 @layer utilities {

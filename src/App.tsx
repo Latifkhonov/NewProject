@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Globe, ChevronDown, Play, Star, Users, Building2, TrendingUp, Award, CheckCircle, ArrowRight, Phone, Mail, MapPin, Sparkles, Zap, Shield, Factory, Wrench, Truck, Settings } from 'lucide-react';
+import { Globe, ChevronDown, Play, Star, Users, Building2, TrendingUp, Award, CheckCircle, ArrowRight, Phone, Mail, MapPin, Sparkles, Zap, Shield, Factory, Wrench, Truck, Settings, Search } from 'lucide-react';
 import { translations, Translations } from './translations';
 import { LoginForm } from './components/LoginForm';
 import { RegisterForm } from './components/RegisterForm';

@@ -88,8 +88,7 @@ export const DarkModeToggle: React.FC<DarkModeToggleProps> = ({
         <span className="text-sm font-medium">{currentThemeOption?.label}</span>
         <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${
           showDropdown ? 'rotate-180' : ''
-        } opacity-60 group-hover:opacity-100 transition-opacity duration-200`}
-        }`} />
+        } opacity-60 group-hover:opacity-100 transition-opacity duration-200`} />
       </button>
 
       {showDropdown && (

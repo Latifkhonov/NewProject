@@ -137,41 +137,95 @@ const App: React.FC = () => {
                   {t.productsServices}
                   <ChevronDown className="h-4 w-4 ml-1 transition-transform group-hover:rotate-180" />
                 </a>
-                <div className="absolute top-full left-0 mt-2 w-96 bg-white/80 backdrop-blur-md border border-gray-200/50 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-                  <div className="p-6">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Industrial Products & Services</h3>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="space-y-3">
-                        <div className="flex items-center space-x-2">
-                          <Factory className="h-4 w-4 text-blue-600" />
-                          <span className="text-sm text-gray-700">Manufacturing Equipment</span>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Settings className="h-4 w-4 text-blue-600" />
-                          <span className="text-sm text-gray-700">Industrial Machinery</span>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Wrench className="h-4 w-4 text-blue-600" />
-                          <span className="text-sm text-gray-700">Tools & Components</span>
+                <div className="absolute top-full left-0 mt-2 w-[600px] bg-white/85 backdrop-blur-md border border-gray-200/50 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                  <div className="p-8">
+                    <h3 className="text-xl font-bold text-gray-900 mb-6">Industrial Products & Services</h3>
+                    
+                    {/* Main Categories */}
+                    <div className="grid grid-cols-3 gap-6 mb-6">
+                      <div className="space-y-4">
+                        <h4 className="font-semibold text-gray-800 text-sm uppercase tracking-wide">Manufacturing</h4>
+                        <div className="space-y-2">
+                          <div className="flex items-center space-x-2 hover:text-blue-600 cursor-pointer transition-colors">
+                            <Factory className="h-4 w-4 text-blue-600" />
+                            <span className="text-sm">CNC Machines</span>
+                          </div>
+                          <div className="flex items-center space-x-2 hover:text-blue-600 cursor-pointer transition-colors">
+                            <Settings className="h-4 w-4 text-blue-600" />
+                            <span className="text-sm">3D Printing</span>
+                          </div>
+                          <div className="flex items-center space-x-2 hover:text-blue-600 cursor-pointer transition-colors">
+                            <Wrench className="h-4 w-4 text-blue-600" />
+                            <span className="text-sm">Assembly Lines</span>
+                          </div>
+                          <div className="flex items-center space-x-2 hover:text-blue-600 cursor-pointer transition-colors">
+                            <Factory className="h-4 w-4 text-blue-600" />
+                            <span className="text-sm">Quality Control</span>
+                          </div>
                         </div>
                       </div>
-                      <div className="space-y-3">
-                        <div className="flex items-center space-x-2">
-                          <Zap className="h-4 w-4 text-blue-600" />
-                          <span className="text-sm text-gray-700">Electronics</span>
+                      
+                      <div className="space-y-4">
+                        <h4 className="font-semibold text-gray-800 text-sm uppercase tracking-wide">Electronics</h4>
+                        <div className="space-y-2">
+                          <div className="flex items-center space-x-2 hover:text-blue-600 cursor-pointer transition-colors">
+                            <Zap className="h-4 w-4 text-blue-600" />
+                            <span className="text-sm">PCB Manufacturing</span>
+                          </div>
+                          <div className="flex items-center space-x-2 hover:text-blue-600 cursor-pointer transition-colors">
+                            <Zap className="h-4 w-4 text-blue-600" />
+                            <span className="text-sm">Semiconductors</span>
+                          </div>
+                          <div className="flex items-center space-x-2 hover:text-blue-600 cursor-pointer transition-colors">
+                            <Zap className="h-4 w-4 text-blue-600" />
+                            <span className="text-sm">Cable Assemblies</span>
+                          </div>
+                          <div className="flex items-center space-x-2 hover:text-blue-600 cursor-pointer transition-colors">
+                            <Zap className="h-4 w-4 text-blue-600" />
+                            <span className="text-sm">Testing Equipment</span>
+                          </div>
                         </div>
-                        <div className="flex items-center space-x-2">
-                          <Building2 className="h-4 w-4 text-blue-600" />
-                          <span className="text-sm text-gray-700">Construction Materials</span>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Truck className="h-4 w-4 text-blue-600" />
-                          <span className="text-sm text-gray-700">Logistics Solutions</span>
+                      </div>
+                      
+                      <div className="space-y-4">
+                        <h4 className="font-semibold text-gray-800 text-sm uppercase tracking-wide">Materials</h4>
+                        <div className="space-y-2">
+                          <div className="flex items-center space-x-2 hover:text-blue-600 cursor-pointer transition-colors">
+                            <Building2 className="h-4 w-4 text-blue-600" />
+                            <span className="text-sm">Steel & Metals</span>
+                          </div>
+                          <div className="flex items-center space-x-2 hover:text-blue-600 cursor-pointer transition-colors">
+                            <Building2 className="h-4 w-4 text-blue-600" />
+                            <span className="text-sm">Plastics & Polymers</span>
+                          </div>
+                          <div className="flex items-center space-x-2 hover:text-blue-600 cursor-pointer transition-colors">
+                            <Building2 className="h-4 w-4 text-blue-600" />
+                            <span className="text-sm">Composites</span>
+                          </div>
+                          <div className="flex items-center space-x-2 hover:text-blue-600 cursor-pointer transition-colors">
+                            <Building2 className="h-4 w-4 text-blue-600" />
+                            <span className="text-sm">Raw Materials</span>
+                          </div>
                         </div>
                       </div>
                     </div>
-                    <div className="mt-4 pt-4 border-t border-gray-200/50">
+                    
+                    {/* Featured Services */}
+                    <div className="border-t border-gray-200/50 pt-4">
+                      <h4 className="font-semibold text-gray-800 mb-3">Featured Services</h4>
+                      <div className="flex flex-wrap gap-2">
+                        <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Custom Manufacturing</span>
+                        <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-medium">Prototyping</span>
+                        <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-xs font-medium">Design Services</span>
+                        <span className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-xs font-medium">Quality Testing</span>
+                      </div>
+                    </div>
+                    
+                    <div className="mt-4 pt-4 border-t border-gray-200/50 flex justify-between items-center">
                       <p className="text-xs text-gray-600">Browse over 500+ product categories from verified suppliers</p>
+                      <button className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition-colors">
+                        View All Categories
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -183,36 +237,77 @@ const App: React.FC = () => {
                   {t.suppliers}
                   <ChevronDown className="h-4 w-4 ml-1 transition-transform group-hover:rotate-180" />
                 </a>
-                <div className="absolute top-full left-0 mt-2 w-80 bg-white/80 backdrop-blur-md border border-gray-200/50 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-                  <div className="p-6">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Find Trusted Suppliers</h3>
-                    <div className="space-y-4">
-                      <div className="flex items-start space-x-3">
-                        <CheckCircle className="h-5 w-5 text-green-600 mt-0.5" />
-                        <div>
-                          <p className="text-sm font-medium text-gray-900">15,000+ Verified Suppliers</p>
-                          <p className="text-xs text-gray-600">All suppliers undergo rigorous verification</p>
+                <div className="absolute top-full left-0 mt-2 w-[500px] bg-white/85 backdrop-blur-md border border-gray-200/50 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                  <div className="p-8">
+                    <h3 className="text-xl font-bold text-gray-900 mb-6">Find Trusted Suppliers</h3>
+                    
+                    {/* Search & Filter Features */}
+                    <div className="grid grid-cols-2 gap-6 mb-6">
+                      <div className="space-y-4">
+                        <h4 className="font-semibold text-gray-800 text-sm uppercase tracking-wide">Search Features</h4>
+                        <div className="space-y-3">
+                          <div className="flex items-start space-x-3">
+                            <Search className="h-4 w-4 text-blue-600 mt-0.5" />
+                            <div>
+                              <p className="text-sm font-medium text-gray-900">Advanced Search</p>
+                              <p className="text-xs text-gray-600">Filter by location, capabilities, certifications</p>
+                            </div>
+                          </div>
+                          <div className="flex items-start space-x-3">
+                            <MapPin className="h-4 w-4 text-green-600 mt-0.5" />
+                            <div>
+                              <p className="text-sm font-medium text-gray-900">Geographic Search</p>
+                              <p className="text-xs text-gray-600">Find suppliers by proximity and region</p>
+                            </div>
+                          </div>
+                          <div className="flex items-start space-x-3">
+                            <Award className="h-4 w-4 text-purple-600 mt-0.5" />
+                            <div>
+                              <p className="text-sm font-medium text-gray-900">Certification Filter</p>
+                              <p className="text-xs text-gray-600">ISO, CE, and industry-specific certifications</p>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                      <div className="flex items-start space-x-3">
-                        <MapPin className="h-5 w-5 text-blue-600 mt-0.5" />
-                        <div>
-                          <p className="text-sm font-medium text-gray-900">Nationwide Coverage</p>
-                          <p className="text-xs text-gray-600">Suppliers across all regions of Uzbekistan</p>
-                        </div>
-                      </div>
-                      <div className="flex items-start space-x-3">
-                        <Award className="h-5 w-5 text-purple-600 mt-0.5" />
-                        <div>
-                          <p className="text-sm font-medium text-gray-900">Quality Certified</p>
-                          <p className="text-xs text-gray-600">ISO, CE, and local certifications verified</p>
+                      
+                      <div className="space-y-4">
+                        <h4 className="font-semibold text-gray-800 text-sm uppercase tracking-wide">Verification</h4>
+                        <div className="space-y-3">
+                          <div className="flex items-start space-x-3">
+                            <CheckCircle className="h-4 w-4 text-green-600 mt-0.5" />
+                            <div>
+                              <p className="text-sm font-medium text-gray-900">15,000+ Verified</p>
+                              <p className="text-xs text-gray-600">Rigorous verification process</p>
+                            </div>
+                          </div>
+                          <div className="flex items-start space-x-3">
+                            <Shield className="h-4 w-4 text-blue-600 mt-0.5" />
+                            <div>
+                              <p className="text-sm font-medium text-gray-900">Background Checks</p>
+                              <p className="text-xs text-gray-600">Financial and operational verification</p>
+                            </div>
+                          </div>
+                          <div className="flex items-start space-x-3">
+                            <Star className="h-4 w-4 text-yellow-600 mt-0.5" />
+                            <div>
+                              <p className="text-sm font-medium text-gray-900">Quality Ratings</p>
+                              <p className="text-xs text-gray-600">Customer reviews and performance metrics</p>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                    <div className="mt-4 pt-4 border-t border-gray-200/50">
-                      <button className="w-full bg-blue-600 text-white py-2 px-4 rounded-md text-sm font-medium hover:bg-blue-700 transition-colors">
-                        Browse All Suppliers
-                      </button>
+                    
+                    {/* Quick Actions */}
+                    <div className="border-t border-gray-200/50 pt-4">
+                      <div className="flex space-x-3">
+                        <button className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-md text-sm font-medium hover:bg-blue-700 transition-colors">
+                          Browse Suppliers
+                        </button>
+                        <button className="flex-1 bg-gray-100 text-gray-700 py-2 px-4 rounded-md text-sm font-medium hover:bg-gray-200 transition-colors">
+                          Post RFQ
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -224,33 +319,76 @@ const App: React.FC = () => {
                   {t.network}
                   <ChevronDown className="h-4 w-4 ml-1 transition-transform group-hover:rotate-180" />
                 </a>
-                <div className="absolute top-full left-0 mt-2 w-72 bg-white/80 backdrop-blur-md border border-gray-200/50 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-                  <div className="p-6">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Business Network</h3>
-                    <div className="space-y-3">
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm text-gray-700">Active Members</span>
-                        <span className="text-sm font-semibold text-blue-600">25,000+</span>
+                <div className="absolute top-full left-0 mt-2 w-[450px] bg-white/85 backdrop-blur-md border border-gray-200/50 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                  <div className="p-8">
+                    <h3 className="text-xl font-bold text-gray-900 mb-6">Business Network</h3>
+                    
+                    {/* Network Features */}
+                    <div className="space-y-4 mb-6">
+                      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg">
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center space-x-2">
+                            <Users className="h-4 w-4 text-blue-600" />
+                            <span className="text-sm font-medium text-gray-900">Active Members</span>
+                          </div>
+                          <span className="text-lg font-bold text-blue-600">25,000+</span>
+                        </div>
+                        <p className="text-xs text-gray-600">Verified businesses across Uzbekistan</p>
                       </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm text-gray-700">Monthly Connections</span>
-                        <span className="text-sm font-semibold text-green-600">50,000+</span>
+                      
+                      <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-4 rounded-lg">
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center space-x-2">
+                            <TrendingUp className="h-4 w-4 text-green-600" />
+                            <span className="text-sm font-medium text-gray-900">Monthly Connections</span>
+                          </div>
+                          <span className="text-lg font-bold text-green-600">50,000+</span>
+                        </div>
+                        <p className="text-xs text-gray-600">Successful business connections made</p>
                       </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm text-gray-700">Success Rate</span>
-                        <span className="text-sm font-semibold text-purple-600">94%</span>
+                      
+                      <div className="bg-gradient-to-r from-purple-50 to-violet-50 p-4 rounded-lg">
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center space-x-2">
+                            <Award className="h-4 w-4 text-purple-600" />
+                            <span className="text-sm font-medium text-gray-900">Success Rate</span>
+                          </div>
+                          <span className="text-lg font-bold text-purple-600">94%</span>
+                        </div>
+                        <p className="text-xs text-gray-600">Successful partnership rate</p>
                       </div>
                     </div>
-                    <div className="mt-4 pt-4 border-t border-gray-200/50">
-                      <p className="text-xs text-gray-600 mb-3">Join Uzbekistan's largest B2B industrial network</p>
-                      <div className="flex space-x-2">
-                        <button className="flex-1 bg-gray-100 text-gray-700 py-1.5 px-3 rounded text-xs font-medium hover:bg-gray-200 transition-colors">
-                          Learn More
-                        </button>
-                        <button className="flex-1 bg-blue-600 text-white py-1.5 px-3 rounded text-xs font-medium hover:bg-blue-700 transition-colors">
-                          Join Network
-                        </button>
+                    
+                    {/* Network Benefits */}
+                    <div className="border-t border-gray-200/50 pt-4 mb-4">
+                      <h4 className="font-semibold text-gray-800 mb-3 text-sm">Network Benefits</h4>
+                      <div className="grid grid-cols-2 gap-3 text-xs">
+                        <div className="flex items-center space-x-2">
+                          <CheckCircle className="h-3 w-3 text-green-600" />
+                          <span className="text-gray-700">Direct messaging</span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <CheckCircle className="h-3 w-3 text-green-600" />
+                          <span className="text-gray-700">Business matching</span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <CheckCircle className="h-3 w-3 text-green-600" />
+                          <span className="text-gray-700">Industry events</span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <CheckCircle className="h-3 w-3 text-green-600" />
+                          <span className="text-gray-700">Market insights</span>
+                        </div>
                       </div>
+                    </div>
+                    
+                    <div className="flex space-x-3">
+                      <button className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-md text-sm font-medium hover:bg-blue-700 transition-colors">
+                        Join Network
+                      </button>
+                      <button className="flex-1 bg-gray-100 text-gray-700 py-2 px-4 rounded-md text-sm font-medium hover:bg-gray-200 transition-colors">
+                        Learn More
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -262,31 +400,89 @@ const App: React.FC = () => {
                   {t.insights}
                   <ChevronDown className="h-4 w-4 ml-1 transition-transform group-hover:rotate-180" />
                 </a>
-                <div className="absolute top-full left-0 mt-2 w-84 bg-white/80 backdrop-blur-md border border-gray-200/50 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-                  <div className="p-6">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Market Insights</h3>
-                    <div className="space-y-4">
-                      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-3 rounded-lg">
-                        <div className="flex items-center space-x-2 mb-2">
-                          <TrendingUp className="h-4 w-4 text-blue-600" />
-                          <span className="text-sm font-medium text-gray-900">Industry Trends</span>
+                <div className="absolute top-full left-0 mt-2 w-[550px] bg-white/85 backdrop-blur-md border border-gray-200/50 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                  <div className="p-8">
+                    <h3 className="text-xl font-bold text-gray-900 mb-6">Market Insights & Analytics</h3>
+                    
+                    {/* Insights Categories */}
+                    <div className="grid grid-cols-2 gap-6 mb-6">
+                      <div className="space-y-4">
+                        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg hover:shadow-md transition-shadow cursor-pointer">
+                          <div className="flex items-center space-x-3 mb-3">
+                            <TrendingUp className="h-5 w-5 text-blue-600" />
+                            <span className="text-sm font-semibold text-gray-900">Industry Trends</span>
+                          </div>
+                          <p className="text-xs text-gray-600 mb-2">Real-time market analysis and forecasting</p>
+                          <div className="flex flex-wrap gap-1">
+                            <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs">Market Reports</span>
+                            <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs">Forecasting</span>
+                          </div>
                         </div>
-                        <p className="text-xs text-gray-600">Real-time market analysis and forecasting</p>
-                      </div>
-                      <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-3 rounded-lg">
-                        <div className="flex items-center space-x-2 mb-2">
-                          <Star className="h-4 w-4 text-green-600" />
-                          <span className="text-sm font-medium text-gray-900">Supplier Rankings</span>
+                        
+                        <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-4 rounded-lg hover:shadow-md transition-shadow cursor-pointer">
+                          <div className="flex items-center space-x-3 mb-3">
+                            <Star className="h-5 w-5 text-green-600" />
+                            <span className="text-sm font-semibold text-gray-900">Supplier Rankings</span>
+                          </div>
+                          <p className="text-xs text-gray-600 mb-2">Performance metrics and quality ratings</p>
+                          <div className="flex flex-wrap gap-1">
+                            <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded text-xs">Quality Scores</span>
+                            <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded text-xs">Reviews</span>
+                          </div>
                         </div>
-                        <p className="text-xs text-gray-600">Performance metrics and quality ratings</p>
                       </div>
-                      <div className="bg-gradient-to-r from-purple-50 to-violet-50 p-3 rounded-lg">
-                        <div className="flex items-center space-x-2 mb-2">
-                          <Sparkles className="h-4 w-4 text-purple-600" />
-                          <span className="text-sm font-medium text-gray-900">Price Intelligence</span>
+                      
+                      <div className="space-y-4">
+                        <div className="bg-gradient-to-r from-purple-50 to-violet-50 p-4 rounded-lg hover:shadow-md transition-shadow cursor-pointer">
+                          <div className="flex items-center space-x-3 mb-3">
+                            <Sparkles className="h-5 w-5 text-purple-600" />
+                            <span className="text-sm font-semibold text-gray-900">Price Intelligence</span>
+                          </div>
+                          <p className="text-xs text-gray-600 mb-2">Competitive pricing and cost optimization</p>
+                          <div className="flex flex-wrap gap-1">
+                            <span className="bg-purple-100 text-purple-700 px-2 py-0.5 rounded text-xs">Price Tracking</span>
+                            <span className="bg-purple-100 text-purple-700 px-2 py-0.5 rounded text-xs">Cost Analysis</span>
+                          </div>
                         </div>
-                        <p className="text-xs text-gray-600">Competitive pricing and cost optimization</p>
+                        
+                        <div className="bg-gradient-to-r from-orange-50 to-amber-50 p-4 rounded-lg hover:shadow-md transition-shadow cursor-pointer">
+                          <div className="flex items-center space-x-3 mb-3">
+                            <Building2 className="h-5 w-5 text-orange-600" />
+                            <span className="text-sm font-semibold text-gray-900">Market Share</span>
+                          </div>
+                          <p className="text-xs text-gray-600 mb-2">Industry competition and market positioning</p>
+                          <div className="flex flex-wrap gap-1">
+                            <span className="bg-orange-100 text-orange-700 px-2 py-0.5 rounded text-xs">Competitor Analysis</span>
+                            <span className="bg-orange-100 text-orange-700 px-2 py-0.5 rounded text-xs">Market Size</span>
+                          </div>
+                        </div>
                       </div>
+                    </div>
+                    
+                    {/* Analytics Tools */}
+                    <div className="border-t border-gray-200/50 pt-4">
+                      <h4 className="font-semibold text-gray-800 mb-3 text-sm">Analytics Tools</h4>
+                      <div className="grid grid-cols-3 gap-3 text-xs">
+                        <div className="text-center p-2 bg-gray-50 rounded">
+                          <div className="font-medium text-gray-900">Custom Reports</div>
+                          <div className="text-gray-600">Tailored insights</div>
+                        </div>
+                        <div className="text-center p-2 bg-gray-50 rounded">
+                          <div className="font-medium text-gray-900">Data Export</div>
+                          <div className="text-gray-600">CSV, Excel, PDF</div>
+                        </div>
+                        <div className="text-center p-2 bg-gray-50 rounded">
+                          <div className="font-medium text-gray-900">API Access</div>
+                          <div className="text-gray-600">Real-time data</div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="mt-4 pt-4 border-t border-gray-200/50 flex justify-between items-center">
+                      <p className="text-xs text-gray-600">Access comprehensive market intelligence</p>
+                      <button className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition-colors">
+                        View Insights
+                      </button>
                     </div>
                   </div>
                 </div>

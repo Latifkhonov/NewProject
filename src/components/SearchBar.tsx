@@ -24,7 +24,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   const [query, setQuery] = useState('');
   const [location, setLocation] = useState('');
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const [showFilters, setShowFiltersPanel] = useState(false);
+  const [isFilterPanelOpen, setIsFilterPanelOpen] = useState(false);
   const [recentSearches] = useState([
     'CNC Machining',
     'Steel Suppliers',
@@ -124,7 +124,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
           <div className="flex border-t lg:border-t-0 lg:border-l border-gray-200">
             {showFilters && (
               <button
-                onClick={() => setShowFiltersPanel(!showFilters)}
+                onClick={() => setIsFilterPanelOpen(!isFilterPanelOpen)}
                 className="px-4 py-4 text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-colors border-r border-gray-200"
               >
                 <Filter className="h-5 w-5" />

@@ -131,18 +131,166 @@ const App: React.FC = () => {
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex space-x-8">
-              <a href="#" className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors">
-                {t.productsServices}
-              </a>
-              <a href="#" className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors">
-                {t.suppliers}
-              </a>
-              <a href="#" className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors">
-                {t.network}
-              </a>
-              <a href="#" className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors">
-                {t.insights}
-              </a>
+              {/* Products & Services */}
+              <div className="relative group">
+                <a href="#" className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors flex items-center">
+                  {t.productsServices}
+                  <ChevronDown className="h-4 w-4 ml-1 transition-transform group-hover:rotate-180" />
+                </a>
+                <div className="absolute top-full left-0 mt-2 w-96 bg-white/80 backdrop-blur-md border border-gray-200/50 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                  <div className="p-6">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Industrial Products & Services</h3>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-3">
+                        <div className="flex items-center space-x-2">
+                          <Factory className="h-4 w-4 text-blue-600" />
+                          <span className="text-sm text-gray-700">Manufacturing Equipment</span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Settings className="h-4 w-4 text-blue-600" />
+                          <span className="text-sm text-gray-700">Industrial Machinery</span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Wrench className="h-4 w-4 text-blue-600" />
+                          <span className="text-sm text-gray-700">Tools & Components</span>
+                        </div>
+                      </div>
+                      <div className="space-y-3">
+                        <div className="flex items-center space-x-2">
+                          <Zap className="h-4 w-4 text-blue-600" />
+                          <span className="text-sm text-gray-700">Electronics</span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Building2 className="h-4 w-4 text-blue-600" />
+                          <span className="text-sm text-gray-700">Construction Materials</span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Truck className="h-4 w-4 text-blue-600" />
+                          <span className="text-sm text-gray-700">Logistics Solutions</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="mt-4 pt-4 border-t border-gray-200/50">
+                      <p className="text-xs text-gray-600">Browse over 500+ product categories from verified suppliers</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Suppliers */}
+              <div className="relative group">
+                <a href="#" className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors flex items-center">
+                  {t.suppliers}
+                  <ChevronDown className="h-4 w-4 ml-1 transition-transform group-hover:rotate-180" />
+                </a>
+                <div className="absolute top-full left-0 mt-2 w-80 bg-white/80 backdrop-blur-md border border-gray-200/50 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                  <div className="p-6">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Find Trusted Suppliers</h3>
+                    <div className="space-y-4">
+                      <div className="flex items-start space-x-3">
+                        <CheckCircle className="h-5 w-5 text-green-600 mt-0.5" />
+                        <div>
+                          <p className="text-sm font-medium text-gray-900">15,000+ Verified Suppliers</p>
+                          <p className="text-xs text-gray-600">All suppliers undergo rigorous verification</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start space-x-3">
+                        <MapPin className="h-5 w-5 text-blue-600 mt-0.5" />
+                        <div>
+                          <p className="text-sm font-medium text-gray-900">Nationwide Coverage</p>
+                          <p className="text-xs text-gray-600">Suppliers across all regions of Uzbekistan</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start space-x-3">
+                        <Award className="h-5 w-5 text-purple-600 mt-0.5" />
+                        <div>
+                          <p className="text-sm font-medium text-gray-900">Quality Certified</p>
+                          <p className="text-xs text-gray-600">ISO, CE, and local certifications verified</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="mt-4 pt-4 border-t border-gray-200/50">
+                      <button className="w-full bg-blue-600 text-white py-2 px-4 rounded-md text-sm font-medium hover:bg-blue-700 transition-colors">
+                        Browse All Suppliers
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Network */}
+              <div className="relative group">
+                <a href="#" className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors flex items-center">
+                  {t.network}
+                  <ChevronDown className="h-4 w-4 ml-1 transition-transform group-hover:rotate-180" />
+                </a>
+                <div className="absolute top-full left-0 mt-2 w-72 bg-white/80 backdrop-blur-md border border-gray-200/50 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                  <div className="p-6">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Business Network</h3>
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm text-gray-700">Active Members</span>
+                        <span className="text-sm font-semibold text-blue-600">25,000+</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm text-gray-700">Monthly Connections</span>
+                        <span className="text-sm font-semibold text-green-600">50,000+</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm text-gray-700">Success Rate</span>
+                        <span className="text-sm font-semibold text-purple-600">94%</span>
+                      </div>
+                    </div>
+                    <div className="mt-4 pt-4 border-t border-gray-200/50">
+                      <p className="text-xs text-gray-600 mb-3">Join Uzbekistan's largest B2B industrial network</p>
+                      <div className="flex space-x-2">
+                        <button className="flex-1 bg-gray-100 text-gray-700 py-1.5 px-3 rounded text-xs font-medium hover:bg-gray-200 transition-colors">
+                          Learn More
+                        </button>
+                        <button className="flex-1 bg-blue-600 text-white py-1.5 px-3 rounded text-xs font-medium hover:bg-blue-700 transition-colors">
+                          Join Network
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Insights */}
+              <div className="relative group">
+                <a href="#" className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors flex items-center">
+                  {t.insights}
+                  <ChevronDown className="h-4 w-4 ml-1 transition-transform group-hover:rotate-180" />
+                </a>
+                <div className="absolute top-full left-0 mt-2 w-84 bg-white/80 backdrop-blur-md border border-gray-200/50 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                  <div className="p-6">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Market Insights</h3>
+                    <div className="space-y-4">
+                      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-3 rounded-lg">
+                        <div className="flex items-center space-x-2 mb-2">
+                          <TrendingUp className="h-4 w-4 text-blue-600" />
+                          <span className="text-sm font-medium text-gray-900">Industry Trends</span>
+                        </div>
+                        <p className="text-xs text-gray-600">Real-time market analysis and forecasting</p>
+                      </div>
+                      <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-3 rounded-lg">
+                        <div className="flex items-center space-x-2 mb-2">
+                          <Star className="h-4 w-4 text-green-600" />
+                          <span className="text-sm font-medium text-gray-900">Supplier Rankings</span>
+                        </div>
+                        <p className="text-xs text-gray-600">Performance metrics and quality ratings</p>
+                      </div>
+                      <div className="bg-gradient-to-r from-purple-50 to-violet-50 p-3 rounded-lg">
+                        <div className="flex items-center space-x-2 mb-2">
+                          <Sparkles className="h-4 w-4 text-purple-600" />
+                          <span className="text-sm font-medium text-gray-900">Price Intelligence</span>
+                        </div>
+                        <p className="text-xs text-gray-600">Competitive pricing and cost optimization</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </nav>
 
             {/* Right side */}

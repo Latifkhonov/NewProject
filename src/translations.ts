@@ -815,7 +815,7 @@ export const translations: Record<string, Translations> = {
     selectTheme: "Mavzuni tanlang",
     switchToLight: "Yorug' rejimga o'tish",
     switchToDark: "Qorong'u rejimga o'tish",
-  },
+  
     // Accessibility
     categoriesList: "Mahsulot toifalari",
     carouselAnnouncement: "Karusel mazmuni",

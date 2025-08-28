@@ -380,7 +380,7 @@ export const Navigation: React.FC<NavigationProps> = ({
           <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-xl shadow-lg py-2 z-50 border border-gray-200 dark:border-gray-700">
             {Object.entries(t.languages).map(([code, name]) => (
               <React.Fragment key={code}>
-                {user.role === 'admin' && (
+               {user && user.role === 'admin' && (
                   <button
                     onClick={() => {
                       window.history.pushState({}, '', '/admin');

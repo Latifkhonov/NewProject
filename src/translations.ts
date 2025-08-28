@@ -534,7 +534,7 @@ export const translations: Record<string, Translations> = {
     systemModeDesc: "Follow system preference",
     selectTheme: "Select theme",
     switchToLight: "Switch to light mode",
-    switchToDark: "Switch to dark mode"
+    switchToDark: "Switch to dark mode",
 
     // Accessibility
     categoriesList: "Product categories",

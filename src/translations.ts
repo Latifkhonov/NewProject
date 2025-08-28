@@ -1094,7 +1094,7 @@ export const translations: Record<string, Translations> = {
     systemModeDesc: "Следовать системным настройкам",
     selectTheme: "Выбрать тему",
     switchToLight: "Переключить на светлую тему",
-    switchToDark: "Переключить на темную тему"
+    switchToDark: "Переключить на темную тему",
 
     // Accessibility
     categoriesList: "Категории продуктов",

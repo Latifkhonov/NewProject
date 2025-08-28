@@ -836,7 +836,7 @@ export const translations: Record<string, Translations> = {
     deselected: "tanlov bekor qilindi",
     searchOptions: "Variantlarni qidirish",
     clearSearch: "Qidiruvni tozalash",
-    noOptionsFound: "Variantlar topilmadi"
+    noOptionsFound: "Variantlar topilmadi",
   },
 
   ru: {

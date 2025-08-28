@@ -254,6 +254,28 @@ export interface Translations {
   selectTheme: string;
   switchToLight: string;
   switchToDark: string;
+
+  // Accessibility
+  categoriesList: string;
+  carouselAnnouncement: string;
+  previousSlide: string;
+  nextSlide: string;
+  pauseCarousel: string;
+  playCarousel: string;
+  slideIndicators: string;
+  skipToEnd: string;
+  loadedMoreItems: string;
+  loadingMore: string;
+  loadMore: string;
+  loadMoreDescription: string;
+  endOfContent: string;
+  skipToTop: string;
+  itemsSelected: string;
+  selected: string;
+  deselected: string;
+  searchOptions: string;
+  clearSearch: string;
+  noOptionsFound: string;
 }
 
 export const translations: Record<string, Translations> = {
@@ -513,6 +535,28 @@ export const translations: Record<string, Translations> = {
     selectTheme: "Select theme",
     switchToLight: "Switch to light mode",
     switchToDark: "Switch to dark mode"
+
+    // Accessibility
+    categoriesList: "Product categories",
+    carouselAnnouncement: "Carousel content",
+    previousSlide: "Previous slide",
+    nextSlide: "Next slide",
+    pauseCarousel: "Pause carousel",
+    playCarousel: "Play carousel",
+    slideIndicators: "Slide indicators",
+    skipToEnd: "Skip to end of carousel",
+    loadedMoreItems: "Loaded more items",
+    loadingMore: "Loading more content...",
+    loadMore: "Load More",
+    loadMoreDescription: "Load more items to continue browsing",
+    endOfContent: "You have reached the end of the content.",
+    skipToTop: "Skip to top of content",
+    itemsSelected: "items selected",
+    selected: "selected",
+    deselected: "deselected",
+    searchOptions: "Search options",
+    clearSearch: "Clear search",
+    noOptionsFound: "No options found"
   },
 
   uz: {
@@ -771,6 +815,28 @@ export const translations: Record<string, Translations> = {
     selectTheme: "Mavzuni tanlang",
     switchToLight: "Yorug' rejimga o'tish",
     switchToDark: "Qorong'u rejimga o'tish"
+
+    // Accessibility
+    categoriesList: "Mahsulot toifalari",
+    carouselAnnouncement: "Karusel mazmuni",
+    previousSlide: "Oldingi slayd",
+    nextSlide: "Keyingi slayd",
+    pauseCarousel: "Karuselni to'xtatish",
+    playCarousel: "Karuselni boshlash",
+    slideIndicators: "Slayd ko'rsatkichlari",
+    skipToEnd: "Karusel oxiriga o'tish",
+    loadedMoreItems: "Ko'proq elementlar yuklandi",
+    loadingMore: "Ko'proq kontent yuklanmoqda...",
+    loadMore: "Ko'proq Yuklash",
+    loadMoreDescription: "Ko'rishni davom ettirish uchun ko'proq elementlar yuklang",
+    endOfContent: "Siz kontentning oxiriga yetdingiz.",
+    skipToTop: "Kontent boshiga o'tish",
+    itemsSelected: "element tanlandi",
+    selected: "tanlandi",
+    deselected: "tanlov bekor qilindi",
+    searchOptions: "Variantlarni qidirish",
+    clearSearch: "Qidiruvni tozalash",
+    noOptionsFound: "Variantlar topilmadi"
   },
 
   ru: {
@@ -1029,6 +1095,28 @@ export const translations: Record<string, Translations> = {
     selectTheme: "Выбрать тему",
     switchToLight: "Переключить на светлую тему",
     switchToDark: "Переключить на темную тему"
+
+    // Accessibility
+    categoriesList: "Категории продуктов",
+    carouselAnnouncement: "Содержимое карусели",
+    previousSlide: "Предыдущий слайд",
+    nextSlide: "Следующий слайд",
+    pauseCarousel: "Приостановить карусель",
+    playCarousel: "Запустить карусель",
+    slideIndicators: "Индикаторы слайдов",
+    skipToEnd: "Перейти к концу карусели",
+    loadedMoreItems: "Загружено больше элементов",
+    loadingMore: "Загрузка дополнительного контента...",
+    loadMore: "Загрузить Еще",
+    loadMoreDescription: "Загрузите больше элементов для продолжения просмотра",
+    endOfContent: "Вы достигли конца контента.",
+    skipToTop: "Перейти к началу контента",
+    itemsSelected: "элементов выбрано",
+    selected: "выбрано",
+    deselected: "отменено",
+    searchOptions: "Поиск опций",
+    clearSearch: "Очистить поиск",
+    noOptionsFound: "Опции не найдены"
   },
 
   zh: {
@@ -1287,5 +1375,27 @@ export const translations: Record<string, Translations> = {
     selectTheme: "选择主题",
     switchToLight: "切换到浅色模式",
     switchToDark: "切换到深色模式"
+
+    // Accessibility
+    categoriesList: "产品类别",
+    carouselAnnouncement: "轮播内容",
+    previousSlide: "上一张幻灯片",
+    nextSlide: "下一张幻灯片",
+    pauseCarousel: "暂停轮播",
+    playCarousel: "播放轮播",
+    slideIndicators: "幻灯片指示器",
+    skipToEnd: "跳到轮播结尾",
+    loadedMoreItems: "加载了更多项目",
+    loadingMore: "正在加载更多内容...",
+    loadMore: "加载更多",
+    loadMoreDescription: "加载更多项目以继续浏览",
+    endOfContent: "您已到达内容的末尾。",
+    skipToTop: "跳到内容顶部",
+    itemsSelected: "项已选择",
+    selected: "已选择",
+    deselected: "已取消选择",
+    searchOptions: "搜索选项",
+    clearSearch: "清除搜索",
+    noOptionsFound: "未找到选项"
   }
 };

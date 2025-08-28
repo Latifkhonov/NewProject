@@ -237,11 +237,24 @@ const App: React.FC = () => {
       </section>
 
       {/* Popular Categories - Thomas Net Style */}
-      <section className="py-16 bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
+      <section 
+        className="py-16 bg-gray-50 dark:bg-gray-800 transition-colors duration-300"
+        aria-labelledby="popular-categories-heading"
+        role="region"
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">{t.popularCategories}</h2>
+          <h2 
+            id="popular-categories-heading"
+            className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center"
+          >
+            {t.popularCategories}
+          </h2>
           
-          <div className="category-grid">
+          <div 
+            className="category-grid"
+            role="list"
+            aria-label={t.categoriesList || 'Product categories'}
+          >
             {[
               { name: t.manufacturing || 'Manufacturing & Processing', icon: Factory, count: `3,200+ ${t.suppliersCount}`, color: 'bg-blue-500' },
               { name: t.industrialEquipment || 'Industrial Equipment', icon: Settings, count: `2,800+ ${t.suppliersCount}`, color: 'bg-green-500' },
@@ -250,19 +263,43 @@ const App: React.FC = () => {
               { name: t.electronics, icon: Zap, count: `2,400+ ${t.suppliersCount}`, color: 'bg-indigo-500' },
               { name: t.construction, icon: Building2, count: `3,600+ ${t.suppliersCount}`, color: 'bg-red-500' }
             ].map((category, index) => (
-              <div key={index} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-6 rounded-lg cursor-pointer transition-all duration-300 hover:shadow-lg hover:border-blue-300 dark:hover:border-blue-600 hover:-translate-y-1">
+              <div 
+                key={index} 
+                className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-6 rounded-lg cursor-pointer transition-all duration-300 hover:shadow-lg hover:border-blue-300 dark:hover:border-blue-600 hover:-translate-y-1 focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2"
+                role="listitem"
+              >
+                <a
+                  href={`/category/${category.name.toLowerCase().replace(/\s+/g, '-')}`}
+                  className="block focus:outline-none"
+                  aria-describedby={`category-${index}-description`}
+                >
                 <div className="flex items-center mb-4">
                   <div className={`${category.color} p-3 rounded-lg mr-4 transition-transform duration-300 hover:scale-110`}>
-                    <category.icon className="h-6 w-6 text-white" />
+                    <category.icon 
+                      className="h-6 w-6 text-white" 
+                      aria-hidden="true"
+                    />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 dark:text-white">{category.name}</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">{category.count}</p>
+                    <h3 className="font-semibold text-gray-900 dark:text-white">
+                      {category.name}
+                    </h3>
+                    <p 
+                      id={`category-${index}-description`}
+                      className="text-sm text-gray-600 dark:text-gray-300"
+                    >
+                      {category.count}
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-center text-blue-600 dark:text-blue-400 text-sm font-medium transition-colors duration-300 hover:text-blue-700 dark:hover:text-blue-300">
-                  {t.viewProfile} <ArrowRight className="h-4 w-4 ml-1" />
+                  {t.viewProfile} 
+                  <ArrowRight 
+                    className="h-4 w-4 ml-1" 
+                    aria-hidden="true"
+                  />
                 </div>
+                </a>
               </div>
             ))}
           </div>

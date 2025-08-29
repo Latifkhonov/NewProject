@@ -5,21 +5,21 @@ import { SearchBar } from './SearchBar';
 import { useTranslation } from '../hooks/useTranslation';
 
 const ProductsServicesPage: React.FC = () => {
-  const { t } = useTranslation();
+  const t = useTranslation();
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Breadcrumb 
           items={[
-            { label: t('home'), href: '/' },
-            { label: t('productsServices'), href: '/products-services' }
+            { label: t.home, href: '/' },
+            { label: t.productsServices, href: '/products-services' }
           ]} 
         />
         
         <div className="mt-8">
           <SearchBar 
-            placeholder={t('searchProductsServices')}
+            placeholder={t.searchProductsServices}
             onSearch={() => {}}
           />
         </div>
@@ -32,11 +32,11 @@ const ProductsServicesPage: React.FC = () => {
           </div>
           
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            {t('productsServices')}
+            {t.productsServices}
           </h1>
           
           <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-            {t('comingSoon')}! {t('productListingsWillBeAvailable')}
+            {t.comingSoon}! {t.productListingsWillBeAvailable}
           </p>
 
           <div className="grid md:grid-cols-3 gap-8 mt-12 max-w-4xl mx-auto">

@@ -276,6 +276,11 @@ export interface Translations {
   searchOptions: string;
   clearSearch: string;
   noOptionsFound: string;
+
+  // Products & Services Page
+  comingSoon: string;
+  productListingsWillBeAvailable: string;
+  searchProductsServices: string;
 }
 
 export const translations: Record<string, Translations> = {
@@ -556,7 +561,12 @@ export const translations: Record<string, Translations> = {
     deselected: "deselected",
     searchOptions: "Search options",
     clearSearch: "Clear search",
-    noOptionsFound: "No options found"
+    noOptionsFound: "No options found",
+
+    // Products & Services Page
+    comingSoon: "Coming Soon",
+    productListingsWillBeAvailable: "Product listings will be available here soon",
+    searchProductsServices: "Search products and services..."
   },
 
   uz: {
@@ -837,6 +847,11 @@ export const translations: Record<string, Translations> = {
     searchOptions: "Variantlarni qidirish",
     clearSearch: "Qidiruvni tozalash",
     noOptionsFound: "Variantlar topilmadi",
+
+    // Products & Services Page
+    comingSoon: "Tez Kunda",
+    productListingsWillBeAvailable: "Mahsulot ro'yxatlari tez orada bu yerda mavjud bo'ladi",
+    searchProductsServices: "Mahsulot va xizmatlarni qidiring..."
   },
 
   ru: {
@@ -1116,7 +1131,12 @@ export const translations: Record<string, Translations> = {
     deselected: "отменено",
     searchOptions: "Поиск опций",
     clearSearch: "Очистить поиск",
-    noOptionsFound: "Опции не найдены"
+    noOptionsFound: "Опции не найдены",
+
+    // Products & Services Page
+    comingSoon: "Скоро",
+    productListingsWillBeAvailable: "Списки продуктов скоро будут доступны здесь",
+    searchProductsServices: "Поиск продуктов и услуг..."
   },
 
   zh: {
@@ -1396,6 +1416,11 @@ export const translations: Record<string, Translations> = {
     deselected: "已取消选择",
     searchOptions: "搜索选项",
     clearSearch: "清除搜索",
-    noOptionsFound: "未找到选项"
+    noOptionsFound: "未找到选项",
+
+    // Products & Services Page
+    comingSoon: "即将推出",
+    productListingsWillBeAvailable: "产品列表即将在此提供",
+    searchProductsServices: "搜索产品和服务..."
   }
 };

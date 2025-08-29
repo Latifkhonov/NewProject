@@ -31,6 +31,7 @@ interface NavigationProps {
   onNavigateToSuppliers?: () => void;
   onNavigateToNetwork?: () => void;
   onNavigateToInsights?: () => void;
+  onNavigateToProductsServices?: () => void;
 }
 
 interface NavItem {
@@ -47,8 +48,9 @@ export const Navigation: React.FC<NavigationProps> = ({
   onRegister,
   onLogout,
   onNavigateToSuppliers,
-  onNavigateToNetwork,
-  onNavigateToInsights
+  onNavigateToNetwork, // Keep this line
+  onNavigateToInsights, // Keep this line
+  onNavigateToProductsServices // Keep this line
 }) => {
   const { t, currentLanguage, changeLanguage } = useTranslation();
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -63,40 +65,9 @@ export const Navigation: React.FC<NavigationProps> = ({
     {
       id: 'products',
       label: t.productsServices,
-      type: 'mega',
-      items: [
-        {
-          category: 'Manufacturing',
-          icon: Factory,
-          items: [
-            { name: 'CNC Machining', count: '1,200+', popular: true },
-            { name: '3D Printing', count: '800+', popular: true },
-            { name: 'Injection Molding', count: '600+' },
-            { name: 'Metal Fabrication', count: '900+' },
-            { name: 'Assembly Services', count: '500+' }
-          ]
-        },
-        {
-          category: 'Electronics',
-          icon: Zap,
-          items: [
-            { name: 'PCB Manufacturing', count: '400+', popular: true },
-            { name: 'Cable Assemblies', count: '300+' },
-            { name: 'Electronic Components', count: '1,500+', popular: true },
-            { name: 'Testing Equipment', count: '200+' }
-          ]
-        },
-        {
-          category: 'Materials',
-          icon: Building2,
-          items: [
-            { name: 'Steel & Metals', count: '800+', popular: true },
-            { name: 'Plastics', count: '600+' },
-            { name: 'Composites', count: '300+' },
-            { name: 'Raw Materials', count: '1,000+' }
-          ]
-        }
-      ]
+      type: 'simple',
+      href: '/products-services',
+      onClick: onNavigateToProductsServices
     },
     {
       id: 'suppliers',
@@ -348,6 +319,7 @@ export const Navigation: React.FC<NavigationProps> = ({
                 item.id === 'suppliers' ? onNavigateToSuppliers :
                 item.id === 'network' ? onNavigateToNetwork :
                 item.id === 'insights' ? onNavigateToInsights :
+                item.id === 'products' ? onNavigateToProductsServices :
                 undefined
               }
             >

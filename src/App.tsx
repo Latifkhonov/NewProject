@@ -8,6 +8,7 @@ import { SearchBar } from './components/SearchBar';
 import { AdminDashboard } from './components/AdminDashboard';
 import { SuppliersPage } from './components/SuppliersPage';
 import { NetworkPage } from './components/NetworkPage';
+import { ProductsServicesPage } from './components/ProductsServicesPage';
 import { InsightsPage } from './components/InsightsPage';
 import { useDarkMode } from './hooks/useDarkMode';
 import { useAuth } from './hooks/useAuth';
@@ -15,7 +16,7 @@ import { useTranslation } from './hooks/useTranslation';
 
 const App: React.FC = () => {
   const { t } = useTranslation();
-  const { isDark } = useDarkMode();
+  useDarkMode(); // Ensure dark mode is initialized
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
   const { user, isAuthenticated, initializeAuth, logout } = useAuth();
@@ -32,6 +33,8 @@ const App: React.FC = () => {
       setCurrentPage('network');
     } else if (path === '/insights') {
       setCurrentPage('insights');
+    } else if (path === '/products-services') {
+      setCurrentPage('products-services');
     } else {
       setCurrentPage('home');
     }
@@ -49,6 +52,8 @@ const App: React.FC = () => {
         setCurrentPage('network');
       } else if (path === '/insights') {
         setCurrentPage('insights');
+      } else if (path === '/products-services') {
+        setCurrentPage('products-services');
       } else {
         setCurrentPage('home');
       }
@@ -76,6 +81,11 @@ const App: React.FC = () => {
   const navigateToInsights = () => {
     window.history.pushState({}, '', '/insights');
     setCurrentPage('insights');
+  };
+
+  const navigateToProductsServices = () => {
+    window.history.pushState({}, '', '/products-services');
+    setCurrentPage('products-services');
   };
 
   const navigateToHome = () => {
@@ -119,6 +129,11 @@ const App: React.FC = () => {
   // Render insights page
   if (currentPage === 'insights') {
     return <InsightsPage />;
+  }
+
+  // Render products and services page
+  if (currentPage === 'products-services') {
+    return <ProductsServicesPage />;
   }
 
   return (
@@ -232,6 +247,7 @@ const App: React.FC = () => {
               onNavigateToSuppliers={navigateToSuppliers}
               onNavigateToNetwork={navigateToNetwork}
               onNavigateToInsights={navigateToInsights}
+              onNavigateToProductsServices={navigateToProductsServices}
             />
           </div>
         </div>

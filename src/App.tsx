@@ -7,6 +7,7 @@ import { Breadcrumb } from './components/Breadcrumb';
 import { SearchBar } from './components/SearchBar';
 import { AdminDashboard } from './components/AdminDashboard';
 import { SuppliersPage } from './components/SuppliersPage';
+import { NetworkPage } from './components/NetworkPage';
 import { useDarkMode } from './hooks/useDarkMode';
 import { useAuth } from './hooks/useAuth';
 import { useTranslation } from './hooks/useTranslation';
@@ -17,7 +18,7 @@ const App: React.FC = () => {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
   const { user, isAuthenticated, initializeAuth, logout } = useAuth();
-  const [currentPage, setCurrentPage] = useState<'home' | 'admin' | 'suppliers'>('home');
+  const [currentPage, setCurrentPage] = useState<'home' | 'admin' | 'suppliers' | 'network'>('home');
 
   // Check URL for admin page
   useEffect(() => {
@@ -26,6 +27,8 @@ const App: React.FC = () => {
       setCurrentPage('admin');
     } else if (path === '/suppliers') {
       setCurrentPage('suppliers');
+    } else if (path === '/network') {
+      setCurrentPage('network');
     } else {
       setCurrentPage('home');
     }
@@ -39,6 +42,8 @@ const App: React.FC = () => {
         setCurrentPage('admin');
       } else if (path === '/suppliers') {
         setCurrentPage('suppliers');
+      } else if (path === '/network') {
+        setCurrentPage('network');
       } else {
         setCurrentPage('home');
       }
@@ -56,6 +61,11 @@ const App: React.FC = () => {
   const navigateToSuppliers = () => {
     window.history.pushState({}, '', '/suppliers');
     setCurrentPage('suppliers');
+  };
+
+  const navigateToNetwork = () => {
+    window.history.pushState({}, '', '/network');
+    setCurrentPage('network');
   };
 
   const navigateToHome = () => {
@@ -89,6 +99,11 @@ const App: React.FC = () => {
   // Render suppliers page
   if (currentPage === 'suppliers') {
     return <SuppliersPage />;
+  }
+
+  // Render network page
+  if (currentPage === 'network') {
+    return <NetworkPage />;
   }
 
   return (
@@ -200,6 +215,7 @@ const App: React.FC = () => {
               }}
               onLogout={handleLogout}
               onNavigateToSuppliers={navigateToSuppliers}
+              onNavigateToNetwork={navigateToNetwork}
             />
           </div>
         </div>

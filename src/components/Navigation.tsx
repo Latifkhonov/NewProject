@@ -29,6 +29,7 @@ interface NavigationProps {
   onRegister: () => void;
   onLogout: () => void;
   onNavigateToSuppliers?: () => void;
+  onNavigateToNetwork?: () => void;
 }
 
 interface NavItem {
@@ -45,6 +46,7 @@ export const Navigation: React.FC<NavigationProps> = ({
   onRegister,
   onLogout,
   onNavigateToSuppliers
+  onNavigateToNetwork
 }) => {
   const { t, currentLanguage, changeLanguage } = useTranslation();
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -100,6 +102,7 @@ export const Navigation: React.FC<NavigationProps> = ({
       type: 'dropdown',
       items: [
         { name: 'Find Suppliers', icon: Search, description: 'Search verified suppliers', href: '/suppliers', onClick: () => navigateToSuppliers() },
+        { name: 'Find Suppliers', icon: Search, description: 'Search verified suppliers', href: '/suppliers', onClick: onNavigateToSuppliers },
         { name: 'Supplier Directory', icon: Building2, description: 'Browse by category', href: '/directory' },
         { name: 'Top Rated', icon: Star, description: 'Highest rated suppliers', href: '/top-rated' },
         { name: 'Recently Added', icon: Sparkles, description: 'New suppliers', href: '/new' }
@@ -110,7 +113,7 @@ export const Navigation: React.FC<NavigationProps> = ({
       label: t.network,
       type: 'dropdown',
       items: [
-        { name: 'Business Network', icon: Users, description: 'Connect with businesses', href: '/network' },
+        { name: 'Business Network', icon: Users, description: 'Connect with businesses', href: '/network', onClick: onNavigateToNetwork },
         { name: 'Industry Events', icon: Award, description: 'Networking events', href: '/events' },
         { name: 'Partner Program', icon: Shield, description: 'Become a partner', href: '/partners' },
         { name: 'Success Stories', icon: TrendingUp, description: 'Customer testimonials', href: '/success' }
@@ -340,7 +343,11 @@ export const Navigation: React.FC<NavigationProps> = ({
           >
             <button 
               className="flex items-center space-x-1 px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors rounded-lg hover:bg-blue-50 dark:hover:bg-gray-800"
-              onClick={item.id === 'suppliers' ? onNavigateToSuppliers : undefined}
+              onClick={
+                item.id === 'suppliers' ? onNavigateToSuppliers :
+                item.id === 'network' ? onNavigateToNetwork :
+                undefined
+              }
             >
               <span>{item.label}</span>
               <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${

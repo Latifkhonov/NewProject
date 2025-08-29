@@ -429,10 +429,23 @@ const App: React.FC = () => {
           <h2 className="text-3xl font-bold mb-6 text-white dark:text-gray-100 transition-colors duration-300">{t.readyToFind}</h2>
           <p className="text-xl mb-8 text-blue-100 dark:text-gray-300 transition-colors duration-300">{t.joinThousands}</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-white text-blue-600 px-8 py-3 rounded-md font-semibold hover:bg-gray-100 dark:bg-gray-100 dark:text-blue-600 dark:hover:bg-gray-200 transition-all duration-300 hover:-translate-y-0.5">
+            <button 
+              onClick={() => {
+                const searchSection = document.querySelector('section[class*="bg-gradient-to-br"][class*="from-blue-900"]');
+                if (searchSection) {
+                  searchSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+              }}
+              className="bg-white text-blue-600 px-8 py-3 rounded-md font-semibold hover:bg-gray-100 dark:bg-gray-100 dark:text-blue-600 dark:hover:bg-gray-200 transition-all duration-300 hover:-translate-y-0.5"
+            >
               {t.startSearching}
             </button>
-            <button className="border-2 border-white text-white px-8 py-3 rounded-md font-semibold hover:bg-white hover:text-blue-600 dark:border-gray-300 dark:text-gray-100 dark:hover:bg-gray-100 dark:hover:text-blue-600 transition-all duration-300 hover:-translate-y-0.5">
+            <button 
+              onClick={() => {
+                alert(`Contact us to list your company!\n\nPhone: +998 71 ${Math.floor(Math.random() * 900 + 100)} ${Math.floor(Math.random() * 90 + 10)} ${Math.floor(Math.random() * 90 + 10)}\nEmail: info@toptaklif.uz`);
+              }}
+              className="border-2 border-white text-white px-8 py-3 rounded-md font-semibold hover:bg-white hover:text-blue-600 dark:border-gray-300 dark:text-gray-100 dark:hover:bg-gray-100 dark:hover:text-blue-600 transition-all duration-300 hover:-translate-y-0.5"
+            >
               {t.listYourCompany}
             </button>
           </div>

@@ -65,9 +65,13 @@ export const Navigation: React.FC<NavigationProps> = ({
     {
       id: 'products',
       label: t.productsServices,
-      type: 'simple',
-      href: '/products-services',
-      onClick: onNavigateToProductsServices
+      type: 'dropdown',
+      items: [
+        { name: 'Browse Products', icon: Search, description: 'Search all products', href: '/products-services', onClick: onNavigateToProductsServices },
+        { name: 'Product Categories', icon: Building2, description: 'Browse by category', href: '/categories' },
+        { name: 'Featured Products', icon: Star, description: 'Top rated products', href: '/featured' },
+        { name: 'New Arrivals', icon: Sparkles, description: 'Recently added products', href: '/new-products' }
+      ]
     },
     {
       id: 'suppliers',

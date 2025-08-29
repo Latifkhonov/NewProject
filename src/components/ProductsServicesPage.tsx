@@ -102,3 +102,5 @@ const ProductsServicesPage: React.FC = () => {
 };
 
 export default ProductsServicesPage;
+
+export { ProductsServicesPage }

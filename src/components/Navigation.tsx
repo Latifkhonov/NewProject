@@ -45,7 +45,7 @@ export const Navigation: React.FC<NavigationProps> = ({
   onLogin,
   onRegister,
   onLogout,
-  onNavigateToSuppliers
+  onNavigateToSuppliers,
   onNavigateToNetwork
 }) => {
   const { t, currentLanguage, changeLanguage } = useTranslation();

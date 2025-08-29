@@ -108,8 +108,8 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onSwitchT
   ];
 
   return (
-    <div className="w-full max-w-md mx-auto">
-      <div className="bg-white rounded-lg shadow-lg p-8">
+    <div className="w-full max-w-sm sm:max-w-md lg:max-w-lg xl:max-w-xl mx-auto">
+      <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 lg:p-8">
         <div className="text-center mb-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Create Account</h2>
           <p className="text-gray-600">Join TopTaklif's industrial network</p>

@@ -8,6 +8,7 @@ import { SearchBar } from './components/SearchBar';
 import { AdminDashboard } from './components/AdminDashboard';
 import { SuppliersPage } from './components/SuppliersPage';
 import { NetworkPage } from './components/NetworkPage';
+import { InsightsPage } from './components/InsightsPage';
 import { useDarkMode } from './hooks/useDarkMode';
 import { useAuth } from './hooks/useAuth';
 import { useTranslation } from './hooks/useTranslation';
@@ -18,7 +19,7 @@ const App: React.FC = () => {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
   const { user, isAuthenticated, initializeAuth, logout } = useAuth();
-  const [currentPage, setCurrentPage] = useState<'home' | 'admin' | 'suppliers' | 'network'>('home');
+  const [currentPage, setCurrentPage] = useState<'home' | 'admin' | 'suppliers' | 'network' | 'insights'>('home');
 
   // Check URL for admin page
   useEffect(() => {
@@ -29,6 +30,8 @@ const App: React.FC = () => {
       setCurrentPage('suppliers');
     } else if (path === '/network') {
       setCurrentPage('network');
+    } else if (path === '/insights') {
+      setCurrentPage('insights');
     } else {
       setCurrentPage('home');
     }
@@ -44,6 +47,8 @@ const App: React.FC = () => {
         setCurrentPage('suppliers');
       } else if (path === '/network') {
         setCurrentPage('network');
+      } else if (path === '/insights') {
+        setCurrentPage('insights');
       } else {
         setCurrentPage('home');
       }
@@ -66,6 +71,11 @@ const App: React.FC = () => {
   const navigateToNetwork = () => {
     window.history.pushState({}, '', '/network');
     setCurrentPage('network');
+  };
+
+  const navigateToInsights = () => {
+    window.history.pushState({}, '', '/insights');
+    setCurrentPage('insights');
   };
 
   const navigateToHome = () => {
@@ -104,6 +114,11 @@ const App: React.FC = () => {
   // Render network page
   if (currentPage === 'network') {
     return <NetworkPage />;
+  }
+
+  // Render insights page
+  if (currentPage === 'insights') {
+    return <InsightsPage />;
   }
 
   return (
@@ -216,6 +231,7 @@ const App: React.FC = () => {
               onLogout={handleLogout}
               onNavigateToSuppliers={navigateToSuppliers}
               onNavigateToNetwork={navigateToNetwork}
+              onNavigateToInsights={navigateToInsights}
             />
           </div>
         </div>

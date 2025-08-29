@@ -30,6 +30,7 @@ interface NavigationProps {
   onLogout: () => void;
   onNavigateToSuppliers?: () => void;
   onNavigateToNetwork?: () => void;
+  onNavigateToInsights?: () => void;
 }
 
 interface NavItem {
@@ -46,7 +47,8 @@ export const Navigation: React.FC<NavigationProps> = ({
   onRegister,
   onLogout,
   onNavigateToSuppliers,
-  onNavigateToNetwork
+  onNavigateToNetwork,
+  onNavigateToInsights
 }) => {
   const { t, currentLanguage, changeLanguage } = useTranslation();
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -102,7 +104,6 @@ export const Navigation: React.FC<NavigationProps> = ({
       type: 'dropdown',
       items: [
         { name: 'Find Suppliers', icon: Search, description: 'Search verified suppliers', href: '/suppliers', onClick: () => navigateToSuppliers() },
-        { name: 'Find Suppliers', icon: Search, description: 'Search verified suppliers', href: '/suppliers', onClick: onNavigateToSuppliers },
         { name: 'Supplier Directory', icon: Building2, description: 'Browse by category', href: '/directory' },
         { name: 'Top Rated', icon: Star, description: 'Highest rated suppliers', href: '/top-rated' },
         { name: 'Recently Added', icon: Sparkles, description: 'New suppliers', href: '/new' }
@@ -125,7 +126,7 @@ export const Navigation: React.FC<NavigationProps> = ({
       type: 'dropdown',
       items: [
         { name: 'Market Reports', icon: TrendingUp, description: 'Industry analysis', href: '/reports' },
-        { name: 'Price Intelligence', icon: Sparkles, description: 'Pricing trends', href: '/pricing' },
+        { name: 'Price Intelligence', icon: Sparkles, description: 'Pricing trends', href: '/insights', onClick: onNavigateToInsights },
         { name: 'Supplier Rankings', icon: Award, description: 'Performance metrics', href: '/rankings' },
         { name: 'Industry News', icon: Building2, description: 'Latest updates', href: '/news' }
       ]
@@ -346,6 +347,7 @@ export const Navigation: React.FC<NavigationProps> = ({
               onClick={
                 item.id === 'suppliers' ? onNavigateToSuppliers :
                 item.id === 'network' ? onNavigateToNetwork :
+                item.id === 'insights' ? onNavigateToInsights :
                 undefined
               }
             >

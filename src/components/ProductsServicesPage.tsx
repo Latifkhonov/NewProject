@@ -1,7 +1,7 @@
 import React from 'react';
 import { Package, Clock, Building2 } from 'lucide-react';
 import { Breadcrumb } from './Breadcrumb';
-import SearchBar from './SearchBar';
+import { SearchBar } from './SearchBar';
 import { useTranslation } from '../hooks/useTranslation';
 
 const ProductsServicesPage: React.FC = () => {

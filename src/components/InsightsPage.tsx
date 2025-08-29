@@ -27,7 +27,8 @@ import {
   Globe,
   Users,
   Factory,
-  Zap
+  Zap,
+  ArrowLeft
 } from 'lucide-react';
 import { useTranslation } from '../hooks/useTranslation';
 import { SearchBar } from './SearchBar';
@@ -94,6 +95,10 @@ export const InsightsPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'reports' | 'pricing' | 'rankings' | 'news'>('reports');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
+
+  const handleBack = () => {
+    window.history.back();
+  };
 
   // Mock market reports data
   const marketReports: MarketReport[] = [
@@ -313,11 +318,20 @@ export const InsightsPage: React.FC = () => {
       {/* Header */}
       <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex items-center space-x-4 mb-4">
+            <button
+              onClick={handleBack}
+              className="flex items-center space-x-2 px-3 py-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-gray-700 rounded-lg transition-colors duration-300"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              <span>{t.back}</span>
+            </button>
+          </div>
+          
           <Breadcrumb
             items={[
               { label: t.insights, active: true }
             ]}
-            className="mb-4"
           />
           
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">

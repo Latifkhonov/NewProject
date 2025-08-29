@@ -1,6 +1,6 @@
 import React from 'react';
 import { Package, Clock, Building2 } from 'lucide-react';
-import Breadcrumb from './Breadcrumb';
+import { Breadcrumb } from './Breadcrumb';
 import SearchBar from './SearchBar';
 import { useTranslation } from '../hooks/useTranslation';
 

@@ -50,6 +50,7 @@
         ...(token && { Authorization: `Bearer ${token}` }),
          ...options.headers,
        },
+      mode: 'cors',
        ...options,
      };
 
@@ -63,7 +64,9 @@
        
        return await response.json();
      } catch (error) {
-       console.error('API request failed:', error);
+      console.error('API request failed:', error);
+      console.error('Request URL:', `${this.baseURL}${endpoint}`);
+      console.error('Request config:', config);
        throw error;
+  private baseURL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
      }
-   }

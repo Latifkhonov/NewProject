@@ -2,69 +2,56 @@ import { useState, useCallback } from 'react';
 import { User, LoginFormData, RegisterFormData, AuthState } from '../types/auth';
 
 // Mock API functions - replace with actual API calls
-const mockLogin = async (credentials: LoginFormData): Promise<User> => {
-  try {
-    const response = await apiService.login(credentials);
-    return response.user;
-  } catch (error) {
-    // Fallback to mock data for demo purposes
-    if (credentials.email === 'demo@example.com' && credentials.password === 'password') {
-      return {
-        id: '1',
-        email: credentials.email,
-        name: 'Demo User',
-        companyName: 'Demo Company',
-        phone: '+998901234567',
-        companySize: '11-50 employees',
-        role: 'buyer',
-        isVerified: true,
-        createdAt: new Date().toISOString()
-      };
-    }
-    
-    // Admin login fallback
-    if (credentials.email === 'admin@toptaklif.uz' && credentials.password === 'admin123') {
-      return {
-        id: 'admin1',
-        email: credentials.email,
-        name: 'System Administrator',
-        companyName: 'TopTaklif',
-        phone: '+998901234567',
-        companySize: '200+ employees',
-        role: 'admin',
-        isVerified: true,
-        createdAt: new Date().toISOString()
-      };
-    }
-    
-    throw new Error('Invalid email or password');
-  }
-};
+// API service instance
+const apiService = new (class {
+  private baseURL = 'http://localhost:3001/api';
 
-const mockRegister = async (userData: RegisterFormData): Promise<User> => {
-  try {
-    const response = await apiService.register(userData);
-    return response.user;
-  } catch (error) {
-    // Fallback validation
-    if (userData.email === 'existing@example.com') {
-      throw new Error('Email already exists');
-    }
+  async login(credentials: LoginFormData) {
+    const response = await fetch(`${this.baseURL}/auth/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(credentials),
+    });
+
+    const data = await response.json();
     
-    // Create mock user as fallback
-    return {
-      id: Math.random().toString(36).substr(2, 9),
-      email: userData.email,
-      name: userData.name,
-      companyName: userData.companyName,
-      phone: userData.phone,
-      companySize: userData.companySize,
-      role: userData.role,
-      isVerified: false,
-      createdAt: new Date().toISOString()
-    };
+    if (!response.ok) {
+      throw new Error(data.message || 'Login failed');
+    }
+
+    // Store token
+    if (data.token) {
+      localStorage.setItem('authToken', data.token);
+    }
+
+    return data;
   }
-};
+
+  async register(userData: RegisterFormData) {
+    const response = await fetch(`${this.baseURL}/auth/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userData),
+    });
+
+    const data = await response.json();
+    
+    if (!response.ok) {
+      throw new Error(data.message || 'Registration failed');
+    }
+
+    // Store token
+    if (data.token) {
+      localStorage.setItem('authToken', data.token);
+    }
+
+    return data;
+  }
+})();
 
 export const useAuth = () => {
   const [authState, setAuthState] = useState<AuthState>({
@@ -78,19 +65,19 @@ export const useAuth = () => {
     setAuthState(prev => ({ ...prev, isLoading: true, error: null }));
     
     try {
-      const user = await mockLogin(credentials);
+      const response = await apiService.login(credentials);
       setAuthState({
-        user,
+        user: response.user,
         isAuthenticated: true,
         isLoading: false,
         error: null
       });
       
       // Store in localStorage for persistence
-      localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('user', JSON.stringify(response.user));
       localStorage.setItem('isAuthenticated', 'true');
       
-      return { success: true, user };
+      return { success: true, user: response.user };
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Login failed';
       setAuthState(prev => ({
@@ -106,19 +93,19 @@ export const useAuth = () => {
     setAuthState(prev => ({ ...prev, isLoading: true, error: null }));
     
     try {
-      const user = await mockRegister(userData);
+      const response = await apiService.register(userData);
       setAuthState({
-        user,
+        user: response.user,
         isAuthenticated: true,
         isLoading: false,
         error: null
       });
       
       // Store in localStorage for persistence
-      localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('user', JSON.stringify(response.user));
       localStorage.setItem('isAuthenticated', 'true');
       
-      return { success: true, user };
+      return { success: true, user: response.user };
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Registration failed';
       setAuthState(prev => ({
@@ -141,6 +128,7 @@ export const useAuth = () => {
     // Clear localStorage
     localStorage.removeItem('user');
     localStorage.removeItem('isAuthenticated');
+    localStorage.removeItem('authToken');
   }, []);
 
   const clearError = useCallback(() => {

@@ -8,57 +8,13 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 const defaultUrl = 'https://your-project-ref.supabase.co';
 const defaultKey = 'your-anon-key-here';
 
-if (!supabaseUrl || !supabaseAnonKey || supabaseUrl === defaultUrl || supabaseAnonKey === defaultKey) {
-  console.warn('⚠️  Supabase environment variables not configured properly.');
-  console.warn('Please update your .env file with your actual Supabase project values:');
-  console.warn('1. Go to https://supabase.com/dashboard');
-  console.warn('2. Select your project');
-  console.warn('3. Go to Settings > API');
-  console.warn('4. Copy your Project URL and anon/public key');
-  console.warn('5. Update the .env file with these values');
-}
-
-// Custom fetch function for WebContainer environment
-const customFetch = (url: RequestInfo | URL, options?: RequestInit) => {
-  const enhancedOptions: RequestInit = {
-    ...options,
-    credentials: 'include',
-    mode: 'cors',
-    cache: 'no-cache',
-    headers: {
-      'Cache-Control': 'no-cache, no-store, must-revalidate',
-      'Pragma': 'no-cache',
-      'Expires': '0',
-      'Service-Worker': 'bypass',
-      'X-Requested-With': 'XMLHttpRequest',
-      ...options?.headers,
-    },
-  };
-
-  return fetch(url, enhancedOptions);
-};
-
 // Create Supabase client with WebContainer-optimized configuration
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
     persistSession: true,
     autoRefreshToken: true,
     detectSessionInUrl: true,
-    flowType: 'pkce',
-    // Disable email confirmation for development
-    confirmationUrl: undefined,
-  },
-  global: {
-    fetch: customFetch,
-    headers: {
-      'Cache-Control': 'no-cache',
-      'Service-Worker': 'bypass',
-    },
-  },
-  realtime: {
-    params: {
-      eventsPerSecond: 10,
-    },
+    flowType: 'pkce'
   },
 });
 

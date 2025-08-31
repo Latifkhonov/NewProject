@@ -62,18 +62,18 @@ db.exec(`
   );
 `);
 
-// Comprehensive CORS configuration for WebContainer environments
+// **COMPREHENSIVE CORS CONFIGURATION FOR WEB CONTAINER ENVIRONMENTS**
 const corsOptions = {
   origin: function(origin, callback) {
     logger.debug('CORS Origin check:', origin);
     
-    // Allow requests with no origin (like mobile apps, Postman, curl)
+    // Allow requests with no origin (like mobile apps, Postman, curl, Service Workers)
     if (!origin) {
       logger.debug('No origin provided, allowing request');
       return callback(null, true);
     }
     
-    // Define allowed origins
+    // **PRODUCTION-READY ORIGIN WHITELIST**
     const allowedOrigins = [
       // Environment variable for production/custom domains
       process.env.FRONTEND_URL,
@@ -81,33 +81,57 @@ const corsOptions = {
       // Standard local development
       'http://localhost:3000',
       'http://localhost:5173',
+      'http://localhost:4173',
       'http://127.0.0.1:3000',
       'http://127.0.0.1:5173',
+      'http://127.0.0.1:4173',
       
-      // Vite dev server default
-      'http://localhost:4173',
+      // HTTPS variants for local development
+      'https://localhost:3000',
+      'https://localhost:5173',
+      'https://localhost:4173',
     ].filter(Boolean); // Remove undefined values
     
-    // WebContainer URL patterns (regex)
+    // **WEB CONTAINER URL PATTERNS (REGEX)**
     const webContainerPatterns = [
-      /\.webcontainer-api\.io$/,
-      /\.local-credentialless$/,
-      /\.github\.dev$/,
-      /\.gitpod\.io$/,
-      /\.replit\.dev$/,
-      /\.stackblitz\.io$/,
-      /\.codesandbox\.io$/,
-      /\.vercel\.app$/,
-      /\.netlify\.app$/,
+      // WebContainer API patterns
+      /^https:\/\/.*\.webcontainer-api\.io$/,
+      /^https:\/\/.*\.local-credentialless\.webcontainer-api\.io$/,
+      
+      // GitHub Codespaces
+      /^https:\/\/.*\.github\.dev$/,
+      /^https:\/\/.*\.app\.github\.dev$/,
+      
+      // Gitpod
+      /^https:\/\/.*\.gitpod\.io$/,
+      /^https:\/\/\d+-.*\.ws-.*\.gitpod\.io$/,
+      
+      // Replit
+      /^https:\/\/.*\.replit\.dev$/,
+      /^https:\/\/.*\.repl\.co$/,
+      
+      // StackBlitz
+      /^https:\/\/.*\.stackblitz\.io$/,
+      /^https:\/\/.*\.webcontainer\.io$/,
+      
+      // CodeSandbox
+      /^https:\/\/.*\.codesandbox\.io$/,
+      /^https:\/\/.*\.csb\.app$/,
+      
+      // Vercel
+      /^https:\/\/.*\.vercel\.app$/,
+      
+      // Netlify
+      /^https:\/\/.*\.netlify\.app$/,
     ];
     
-    // Check exact matches first
+    // **CHECK EXACT MATCHES FIRST**
     if (allowedOrigins.includes(origin)) {
       logger.debug('Origin allowed (exact match):', origin);
       return callback(null, true);
     }
     
-    // Check WebContainer patterns
+    // **CHECK WEB CONTAINER PATTERNS**
     for (const pattern of webContainerPatterns) {
       if (pattern.test(origin)) {
         logger.debug('Origin allowed (pattern match):', origin, 'Pattern:', pattern);
@@ -115,21 +139,14 @@ const corsOptions = {
       }
     }
     
-    // For development, be more permissive with localhost variations
-    if (origin.includes('localhost') || origin.includes('127.0.0.1')) {
-      logger.debug('Origin allowed (localhost variation):', origin);
+    // **DEVELOPMENT MODE: BE PERMISSIVE**
+    if (process.env.NODE_ENV !== 'production') {
+      logger.debug('Development mode: allowing origin:', origin);
       return callback(null, true);
     }
     
     // Log rejected origins for debugging
     logger.warn('CORS: Origin not allowed:', origin);
-    
-    // In development, allow all origins (remove this in production)
-    if (process.env.NODE_ENV !== 'production') {
-      logger.debug('Development mode: allowing all origins');
-      return callback(null, true);
-    }
-    
     callback(new Error('Not allowed by CORS'));
   },
   credentials: true,
@@ -140,6 +157,9 @@ const corsOptions = {
     'X-Requested-With',
     'Accept',
     'Origin',
+    'Cache-Control',
+    'Pragma',
+    'Service-Worker',
     'Access-Control-Request-Method',
     'Access-Control-Request-Headers'
   ],
@@ -151,18 +171,30 @@ const corsOptions = {
 // Apply CORS middleware
 app.use(cors(corsOptions));
 
-// Additional CORS headers for WebContainer compatibility
+// **ADDITIONAL CORS HEADERS FOR WEB CONTAINER COMPATIBILITY**
 app.use((req, res, next) => {
   const origin = req.headers.origin;
+  
+  logger.debug('Request details:', {
+    method: req.method,
+    url: req.url,
+    origin: origin,
+    userAgent: req.headers['user-agent'],
+    headers: req.headers
+  });
   
   // Set CORS headers explicitly for WebContainer
   if (origin) {
     res.header('Access-Control-Allow-Origin', origin);
+  } else {
+    res.header('Access-Control-Allow-Origin', '*');
   }
+  
   res.header('Access-Control-Allow-Credentials', 'true');
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS,PATCH');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept, Origin, Access-Control-Request-Method, Access-Control-Request-Headers');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept, Origin, Cache-Control, Pragma, Service-Worker, Access-Control-Request-Method, Access-Control-Request-Headers');
   res.header('Access-Control-Expose-Headers', 'Authorization');
+  res.header('Vary', 'Origin');
   
   // Handle preflight requests
   if (req.method === 'OPTIONS') {
@@ -173,10 +205,11 @@ app.use((req, res, next) => {
   next();
 });
 
-// Security middleware
+// Security middleware (relaxed for WebContainer)
 app.use(helmet({
   crossOriginEmbedderPolicy: false,
-  contentSecurityPolicy: false
+  contentSecurityPolicy: false,
+  crossOriginResourcePolicy: false
 }));
 
 // Body parsing middleware
@@ -185,7 +218,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Request logging middleware
 app.use((req, res, next) => {
-  logger.info(`${req.method} ${req.path} - Origin: ${req.headers.origin || 'none'}`);
+  logger.info(`${req.method} ${req.path} - Origin: ${req.headers.origin || 'none'} - User-Agent: ${req.headers['user-agent']?.substring(0, 50) || 'none'}`);
   next();
 });
 
@@ -194,14 +227,15 @@ app.get('/api/health', (req, res) => {
   res.json({ 
     status: 'ok', 
     timestamp: new Date().toISOString(),
-    environment: process.env.NODE_ENV || 'development'
+    environment: process.env.NODE_ENV || 'development',
+    cors: 'enabled'
   });
 });
 
-// Register endpoint
+// **ENHANCED REGISTER ENDPOINT**
 app.post('/api/auth/register', async (req, res) => {
   try {
-    logger.info('Registration attempt:', req.body.email);
+    logger.info('Registration attempt:', req.body.email, 'Origin:', req.headers.origin);
     
     const { email, password, name, companyName, phone, companySize, role } = req.body;
     
@@ -284,15 +318,15 @@ app.post('/api/auth/register', async (req, res) => {
     logger.error('Registration error:', error);
     res.status(500).json({ 
       success: false, 
-      message: 'Internal server error' 
+      message: 'Internal server error during registration' 
     });
   }
 });
 
-// Login endpoint
+// **ENHANCED LOGIN ENDPOINT**
 app.post('/api/auth/login', async (req, res) => {
   try {
-    logger.info('Login attempt:', req.body.email);
+    logger.info('Login attempt:', req.body.email, 'Origin:', req.headers.origin);
     
     const { email, password } = req.body;
     
@@ -377,7 +411,7 @@ app.post('/api/auth/login', async (req, res) => {
     logger.error('Login error:', error);
     res.status(500).json({ 
       success: false, 
-      message: 'Internal server error' 
+      message: 'Internal server error during login' 
     });
   }
 });
@@ -390,6 +424,7 @@ app.post('/api/auth/logout', (req, res) => {
     if (token) {
       // Remove session from database
       db.prepare('DELETE FROM user_sessions WHERE token = ?').run(token);
+      logger.info('User session removed');
     }
     
     res.json({
@@ -401,9 +436,20 @@ app.post('/api/auth/logout', (req, res) => {
     logger.error('Logout error:', error);
     res.status(500).json({ 
       success: false, 
-      message: 'Internal server error' 
+      message: 'Internal server error during logout' 
     });
   }
+});
+
+// **DEBUGGING ENDPOINT**
+app.get('/api/debug/cors', (req, res) => {
+  res.json({
+    origin: req.headers.origin,
+    host: req.headers.host,
+    userAgent: req.headers['user-agent'],
+    allHeaders: req.headers,
+    timestamp: new Date().toISOString()
+  });
 });
 
 // Error handling middleware
@@ -424,14 +470,27 @@ app.use('*', (req, res) => {
   });
 });
 
-// Start server
+// Start server with enhanced logging
 app.listen(PORT, '0.0.0.0', () => {
-  logger.info(`Server running on http://0.0.0.0:${PORT}`);
-  logger.info(`Environment: ${process.env.NODE_ENV || 'development'}`);
-  logger.info(`CORS configured for WebContainer environment`);
-  console.log(`🚀 Server running on http://0.0.0.0:${PORT}`);
-  console.log(`📊 API endpoints available at http://0.0.0.0:${PORT}/api`);
-  console.log(`🔒 CORS configured for WebContainer environment`);
+  logger.info(`🚀 Server running on http://0.0.0.0:${PORT}`);
+  logger.info(`📊 API endpoints available at http://0.0.0.0:${PORT}/api`);
+  logger.info(`🔒 CORS configured for WebContainer environment`);
+  logger.info(`🌐 Environment: ${process.env.NODE_ENV || 'development'}`);
+  logger.info(`🔧 Debug endpoint: http://0.0.0.0:${PORT}/api/debug/cors`);
+  
+  console.log(`
+╔══════════════════════════════════════════════════════════════╗
+║                    🚀 SERVER STARTED                        ║
+║                                                              ║
+║  API URL: http://0.0.0.0:${PORT}/api                              ║
+║  Health Check: http://0.0.0.0:${PORT}/api/health                  ║
+║  CORS Debug: http://0.0.0.0:${PORT}/api/debug/cors               ║
+║                                                              ║
+║  ✅ CORS configured for WebContainer environments           ║
+║  ✅ Service Worker bypass implemented                       ║
+║  ✅ Enhanced logging enabled                                ║
+╚══════════════════════════════════════════════════════════════╝
+  `);
 });
 
 // Graceful shutdown

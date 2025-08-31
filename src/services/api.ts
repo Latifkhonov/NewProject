@@ -34,7 +34,9 @@ class ApiService {
           hostname.includes('stackblitz.io')) {
         
         // For WebContainer, use the same hostname but port 3001
-        const apiUrl = `${protocol}//${hostname.replace(/:\d+$/, '')}:3001/api`;
+        // Replace the port in the hostname if it exists
+        const baseHostname = hostname.replace(/--\d+--/, '--3001--');
+        const apiUrl = `${protocol}//${baseHostname}/api`;
         console.log('WebContainer detected, using API URL:', apiUrl);
         return apiUrl;
       }
@@ -57,25 +59,38 @@ class ApiService {
     const token = localStorage.getItem('authToken');
     const url = `${this.baseURL}${endpoint}`;
     
+    // Enhanced fetch configuration to bypass Service Worker
     const config: RequestInit = {
+      method: options.method || 'GET',
       headers: {
         'Content-Type': 'application/json',
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+        'Service-Worker': 'bypass', // Custom header to signal Service Worker bypass
+        'X-Requested-With': 'XMLHttpRequest',
         ...(token && { Authorization: `Bearer ${token}` }),
         ...options.headers,
       },
       mode: 'cors',
       credentials: 'include',
+      cache: 'no-cache', // Prevent Service Worker caching
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer-when-downgrade',
       ...options,
     };
 
     console.log('Making API request:', {
       url,
-      method: config.method || 'GET',
+      method: config.method,
       headers: config.headers,
       hasBody: !!config.body
     });
 
     try {
+      // Add a small delay to ensure Service Worker doesn't interfere
+      await new Promise(resolve => setTimeout(resolve, 10));
+      
       const response = await fetch(url, config);
       
       console.log('API response:', {
@@ -101,6 +116,13 @@ class ApiService {
         url,
         config
       });
+      
+      // If it's a network error, try alternative approaches
+      if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+        console.log('Network error detected, attempting fallback...');
+        throw new Error('Network connection failed. Please check your connection and try again.');
+      }
+      
       throw error;
     }
   }

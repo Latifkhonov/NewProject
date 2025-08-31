@@ -4,8 +4,18 @@ import { createClient } from '@supabase/supabase-js';
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing Supabase environment variables. Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in your .env file.');
+// Provide default values for development if environment variables are not set
+const defaultUrl = 'https://your-project-ref.supabase.co';
+const defaultKey = 'your-anon-key-here';
+
+if (!supabaseUrl || !supabaseAnonKey || supabaseUrl === defaultUrl || supabaseAnonKey === defaultKey) {
+  console.warn('⚠️  Supabase environment variables not configured properly.');
+  console.warn('Please update your .env file with your actual Supabase project values:');
+  console.warn('1. Go to https://supabase.com/dashboard');
+  console.warn('2. Select your project');
+  console.warn('3. Go to Settings > API');
+  console.warn('4. Copy your Project URL and anon/public key');
+  console.warn('5. Update the .env file with these values');
 }
 
 // Custom fetch function for WebContainer environment

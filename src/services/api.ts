@@ -1,91 +1,148 @@
-@@ .. @@
-   async login(credentials: LoginFormData) {
-     const response = await this.request('/auth/login', {
-       method: 'POST',
-       body: JSON.stringify(credentials),
-     });
+class ApiService {
+  private baseURL: string;
+
+  constructor() {
+    this.baseURL = this.getApiUrl();
+    console.log('API Service initialized with URL:', this.baseURL);
+  }
+
+  private getApiUrl(): string {
+    // Check for environment variable first
+    if (import.meta.env.VITE_API_URL) {
+      return import.meta.env.VITE_API_URL;
+    }
+
+    // In browser environment
+    if (typeof window !== 'undefined') {
+      const currentUrl = window.location;
+      const hostname = currentUrl.hostname;
+      const protocol = currentUrl.protocol;
+      
+      console.log('Current URL details:', {
+        hostname,
+        protocol,
+        port: currentUrl.port,
+        origin: currentUrl.origin
+      });
+
+      // WebContainer environment detection
+      if (hostname.includes('webcontainer-api.io') || 
+          hostname.includes('local-credentialless') ||
+          hostname.includes('github.dev') ||
+          hostname.includes('gitpod.io') ||
+          hostname.includes('replit.dev') ||
+          hostname.includes('stackblitz.io')) {
+        
+        // For WebContainer, use the same hostname but port 3001
+        const apiUrl = `${protocol}//${hostname.replace(/:\d+$/, '')}:3001/api`;
+        console.log('WebContainer detected, using API URL:', apiUrl);
+        return apiUrl;
+      }
+
+      // Local development
+      if (hostname === 'localhost' || hostname === '127.0.0.1') {
+        const apiUrl = `${protocol}//localhost:3001/api`;
+        console.log('Local development detected, using API URL:', apiUrl);
+        return apiUrl;
+      }
+    }
+
+    // Fallback
+    const fallbackUrl = 'http://localhost:3001/api';
+    console.log('Using fallback API URL:', fallbackUrl);
+    return fallbackUrl;
+  }
+
+  private async request(endpoint: string, options: RequestInit = {}) {
+    const token = localStorage.getItem('authToken');
+    const url = `${this.baseURL}${endpoint}`;
+    
+    const config: RequestInit = {
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token && { Authorization: `Bearer ${token}` }),
+        ...options.headers,
+      },
+      mode: 'cors',
+      credentials: 'include',
+      ...options,
+    };
+
+    console.log('Making API request:', {
+      url,
+      method: config.method || 'GET',
+      headers: config.headers,
+      hasBody: !!config.body
+    });
+
+    try {
+      const response = await fetch(url, config);
+      
+      console.log('API response:', {
+        status: response.status,
+        statusText: response.statusText,
+        ok: response.ok,
+        headers: Object.fromEntries(response.headers.entries())
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        const errorMessage = errorData.message || `HTTP error! status: ${response.status}`;
+        console.error('API error response:', errorData);
+        throw new Error(errorMessage);
+      }
+      
+      const data = await response.json();
+      console.log('API success response:', data);
+      return data;
+    } catch (error) {
+      console.error('API request failed:', {
+        error: error.message,
+        url,
+        config
+      });
+      throw error;
+    }
+  }
+
+  async login(credentials: { email: string; password: string; rememberMe?: boolean }) {
+    const response = await this.request('/auth/login', {
+      method: 'POST',
+      body: JSON.stringify(credentials),
+    });
     
     // Store token if provided
     if (response.token) {
       localStorage.setItem('authToken', response.token);
     }
     
-     return response;
-   }
+    return response;
+  }
 
-@@ .. @@
-   async register(userData: RegisterFormData) {
-     const response = await this.request('/auth/register', {
-       method: 'POST',
-       body: JSON.stringify(userData),
-     });
+  async register(userData: any) {
+    const response = await this.request('/auth/register', {
+      method: 'POST',
+      body: JSON.stringify(userData),
+    });
     
     // Store token if provided
     if (response.token) {
       localStorage.setItem('authToken', response.token);
     }
     
-     return response;
-   }
+    return response;
+  }
 
-@@ .. @@
-   async logout() {
+  async logout() {
     const response = await this.request('/auth/logout', {
-       method: 'POST',
-     });
+      method: 'POST',
+    });
     
     // Clear stored token
     localStorage.removeItem('authToken');
     
     return response;
-   }
+  }
+}
 
-@@ .. @@
-   private async request(endpoint: string, options: RequestInit = {}) {
-    const token = localStorage.getItem('authToken');
-    
-     const config: RequestInit = {
-       headers: {
-         'Content-Type': 'application/json',
-        ...(token && { Authorization: `Bearer ${token}` }),
-         ...options.headers,
-       },
-      mode: 'cors',
-       ...options,
-     };
-
-     try {
-       const response = await fetch(`${this.baseURL}${endpoint}`, config);
-       
-       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
-       }
-       
-       return await response.json();
-     } catch (error) {
-      console.error('API request failed:', error);
-      console.error('Request URL:', `${this.baseURL}${endpoint}`);
-      console.error('Request config:', config);
-       throw error;
-     }
-   }
-  
-  private baseURL = (() => {
-    // Check if we have a custom API URL from environment
-    if (import.meta.env.VITE_API_URL) {
-      return import.meta.env.VITE_API_URL;
-    }
-    
-    // In WebContainer environment, use the same origin with port 3001
-    if (typeof window !== 'undefined') {
-      const hostname = window.location.hostname;
-      if (hostname.includes('webcontainer-api.io') || hostname.includes('local-credentialless')) {
-        // Use the same protocol and hostname but port 3001
-        return `${window.location.protocol}//${hostname.replace('5173', '3001')}/api`;
-      }
-    }
-    
-    // Default to localhost for local development
-    return 'http://localhost:3001/api';
-  })();
+export const apiService = new ApiService();

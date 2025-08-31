@@ -71,8 +71,21 @@
      }
    }
   
-  private baseURL = import.meta.env.VITE_API_URL || (
-    typeof window !== 'undefined' && window.location.hostname !== 'localhost' 
-      ? `${window.location.protocol}//${window.location.hostname}:3001/api`
-      : 'http://localhost:3001/api'
-  );
+  private baseURL = (() => {
+    // Check if we have a custom API URL from environment
+    if (import.meta.env.VITE_API_URL) {
+      return import.meta.env.VITE_API_URL;
+    }
+    
+    // In WebContainer environment, use the same origin with port 3001
+    if (typeof window !== 'undefined') {
+      const hostname = window.location.hostname;
+      if (hostname.includes('webcontainer-api.io') || hostname.includes('local-credentialless')) {
+        // Use the same protocol and hostname but port 3001
+        return `${window.location.protocol}//${hostname.replace('5173', '3001')}/api`;
+      }
+    }
+    
+    // Default to localhost for local development
+    return 'http://localhost:3001/api';
+  })();

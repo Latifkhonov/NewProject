@@ -80,6 +80,43 @@ export const useAuth = () => {
     }
   }, [convertSupabaseUser]);
 
+  const signInWithGoogle = useCallback(async () => {
+    setAuthState(prev => ({ ...prev, isLoading: true, error: null }));
+    
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: window.location.origin,
+          queryParams: {
+            access_type: 'offline',
+            prompt: 'consent',
+          }
+        }
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      // OAuth redirect will handle the rest
+      return { success: true };
+    } catch (error) {
+      const errorMessage = error instanceof AuthError 
+        ? error.message 
+        : error instanceof Error 
+        ? error.message 
+        : 'Google sign-in failed';
+      
+      setAuthState(prev => ({
+        ...prev,
+        isLoading: false,
+        error: errorMessage
+      }));
+      
+      return { success: false, error: errorMessage };
+    }
+  }, []);
   const register = useCallback(async (userData: RegisterFormData) => {
     setAuthState(prev => ({ ...prev, isLoading: true, error: null }));
     
@@ -217,6 +254,7 @@ export const useAuth = () => {
   return {
     ...authState,
     login,
+    signInWithGoogle,
     register,
     logout,
     clearError,

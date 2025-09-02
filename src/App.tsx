@@ -529,7 +529,7 @@ const App: React.FC = () => {
       {/* Auth Modal */}
       {showAuthModal && (
         <div className="fixed inset-0 bg-black/50 dark:bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 transition-all duration-300">
-          <div className="relative max-w-md w-full">
+          <div className="relative max-w-md w-full max-h-[90vh] overflow-y-auto">
             <button
               onClick={() => setShowAuthModal(false)}
               className="absolute -top-4 -right-4 bg-white dark:bg-gray-800 rounded-full p-2 shadow-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300 hover:scale-110 z-10"

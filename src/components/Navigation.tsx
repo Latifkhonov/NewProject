@@ -407,7 +407,15 @@ export const Navigation: React.FC<NavigationProps> = ({
       <div className="flex items-center space-x-3">
         {isAuthenticated && user ? (
           <>
-            <span className="hidden sm:inline text-sm text-gray-700">{t.welcome}, {user.name}</span>
+            <button
+              onClick={() => {
+                console.log('Account Parameters clicked');
+                // TODO: Navigate to account settings page
+              }}
+              className="hidden sm:inline px-3 py-1 text-sm text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+            >
+              Account Parameters
+            </button>
             <button
               onClick={onLogout}
               className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"

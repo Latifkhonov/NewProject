@@ -103,24 +103,6 @@ export const useAuth = () => {
       }
 
       if (data.user) {
-        // Create profile record
-        const { error: profileError } = await supabase
-          .from('profiles')
-          .insert({
-            id: data.user.id,
-            email: data.user.email!,
-            name: userData.name,
-            company_name: userData.companyName,
-            phone: userData.phone,
-            company_size: userData.companySize,
-            role: userData.role,
-            is_verified: false
-          });
-
-        if (profileError) {
-          console.warn('Error creating profile:', profileError);
-        }
-
         const user = await convertSupabaseUser(data.user);
         setAuthState({
           user,

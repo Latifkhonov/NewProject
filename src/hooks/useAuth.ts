@@ -170,32 +170,34 @@ export const useAuth = () => {
   }, [convertSupabaseUser]);
 
   const logout = useCallback(async () => {
-    setAuthState(prev => ({ ...prev, isLoading: true }));
+  setAuthState(prev => ({ ...prev, isLoading: true }));
+  
+  try {
+    console.log('Calling supabase.auth.signOut()...'); // Add this line
+    const { error } = await supabase.auth.signOut();
     
-    try {
-      const { error } = await supabase.auth.signOut();
-      
-      if (error) {
-        throw error;
-      }
-
-      setAuthState({
-        user: null,
-        isAuthenticated: false,
-        isLoading: false,
-        error: null
-      });
-    } catch (error) {
-      console.error('Logout error:', error);
-      // Even if logout fails, clear local state
-      setAuthState({
-        user: null,
-        isAuthenticated: false,
-        isLoading: false,
-        error: null
-      });
+    if (error) {
+      console.error('Supabase signOut error:', error); // Modify this line
+      throw error;
     }
-  }, []);
+    console.log('Supabase signOut successful. Updating local state.'); // Add this line
+    setAuthState({
+      user: null,
+      isAuthenticated: false,
+      isLoading: false,
+      error: null
+    });
+  } catch (error) {
+    console.error('Logout function caught an error:', error); // Modify this line
+    // Even if logout fails, clear local state
+    setAuthState({
+      user: null,
+      isAuthenticated: false,
+      isLoading: false,
+      error: null
+    });
+  }
+}, []);
 
   const clearError = useCallback(() => {
     setAuthState(prev => ({ ...prev, error: null }));
